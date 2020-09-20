@@ -1,0 +1,64 @@
+body {
+  color: #323233;
+  font-family: PingFang SC, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f7f8fa;
+}
+
+.forward-enter {
+  z-index: 2;
+  /* opacity: 0; */
+  transform: translateX(100%);
+}
+
+.forward-enter-active {
+  z-index: 2;
+  /* opacity: 1; */
+  transform: translateX(0);
+  transition: all 500ms;
+}
+
+.forward-exit {
+  z-index: 1;
+  /* opacity: 1; */
+}
+
+.forward-exit-active {
+  z-index: 1;
+  /* opacity: .3; */
+  transition: all 500ms;
+}
+
+.back-enter {
+  z-index: 1;
+  /* opacity: .3; */
+}
+
+.back-enter-active {
+  z-index: 1;
+  /* opacity: 1; */
+  transform: translateX(0);
+  transition: all 500ms;
+}
+
+.back-exit {
+  z-index: 2;
+  /* opacity: 1; */
+  transform: translateX(0);
+}
+
+.back-exit-active {
+  z-index: 2;
+  /* opacity: 0; */
+  transform: translate(100%);
+  transition: all 500ms;
+}
+
+
+.page-box{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f7f8fa;
+}
