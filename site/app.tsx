@@ -1,13 +1,11 @@
 import React from 'react';
-// import Test from './components/Test'
-
-const Test = React.lazy(() => import('@/components/Test'));
+import ButtonDemo from './page/Button';
 
 function App() {
   return (
     <div>
       <React.Suspense fallback={<div>Loading...</div>}>
-        <Test />
+        <ButtonDemo />
       </React.Suspense>
     </div>
   );

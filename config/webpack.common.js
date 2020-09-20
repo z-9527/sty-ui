@@ -14,7 +14,7 @@ function resolve(dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'), // 入口起点根目录
   entry: {
-    app: './src/index.tsx'
+    app: './site/index.tsx'
   },
   output: {
     path: resolve('build'),
@@ -24,7 +24,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': resolve('src')
+      '@components': resolve('components')
     },
     extensions: ['.tsx', 'ts', '.js', '.jsx']
   },
@@ -118,7 +118,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './site/index.html',
       minify: {
         collapseWhitespace: true// 删除空格、换行
       }

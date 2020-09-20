@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@site/*": ["site/*"],
+      "@components/*": ["components/*"]
+    },
+  },
+  "include": ["site","components"],
+  "exclude": ["node_modules"]
+}
