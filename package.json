@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --open --config ./config/webpack.dev.js",
     "build": "webpack --config ./config/webpack.prod.js",
     "analyz": "webpack-bundle-analyzer --port 8001 ./build/stats.json",
-    "lint": "eslint src --ext .ts,.tsx,.jsx"
+    "lint": "eslint site components --ext .ts,.tsx,.jsx"
   },
   "husky": {
     "hooks": {
@@ -22,6 +22,8 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-react": "^7.7.0",
+    "@types/react": "^16.9.49",
+    "@types/react-router-config": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
     "babel-eslint": "^10.0.3",

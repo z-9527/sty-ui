@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 // import Loading from '@components/loading';
 
 const style = {
@@ -43,7 +43,10 @@ const DefaultLoading = () => {
  */
 
 function asyncComponent(importComponent, Loading = <DefaultLoading />) {
-  class AsyncComponent extends React.Component<Props, State> {
+  class AsyncComponent extends React.Component<
+    {},
+    { component: ComponentType }
+  > {
     constructor(props) {
       super(props);
 
