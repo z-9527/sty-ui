@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@components/index';
+import { Button } from '@/components/index';
 
 function ButtonDemo() {
   return (

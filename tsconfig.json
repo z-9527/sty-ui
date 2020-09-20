@@ -15,7 +15,7 @@
     "checkJs": false, // 开启 js 检测
     "noUnusedLocals": true, // 有未使用的变量时，抛出错误
     "paths": {
-      "@components/*": ["components/*"]
+      "@/*": ["./*"]
     }
   },
   "include": ["site/**/*", "@types/*", "components/*"], // 需要编译的文件目录
