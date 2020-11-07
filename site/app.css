@@ -62,3 +62,13 @@ body {
   height: 100vh;
   background-color: #f7f8fa;
 }
+
+
+.demo-block__title {
+  margin: 0;
+  padding: 32px 16px 16px;
+  color: rgba(69, 90, 100, 0.6);
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+}
