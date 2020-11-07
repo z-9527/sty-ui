@@ -4,6 +4,7 @@ import asyncComponent from './page/asyncComponent';
 import { RouteConfig } from 'react-router-config';
 
 const ButtonDemo = asyncComponent(() => import('./page/Button'));
+const IconDemo = asyncComponent(() => import('./page/Icon'));
 let routes: RouteConfig[] = [
   {
     path: '/',
@@ -13,6 +14,10 @@ let routes: RouteConfig[] = [
   {
     path: '/button',
     component: ButtonDemo
+  },
+  {
+    path: '/icon',
+    component: IconDemo
   }
 ];
 

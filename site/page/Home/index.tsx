@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Home() {
   return (
-    <div>
+    <div style={{ background: '#fff', height: '100%' }}>
       <ul>
         <li>
           <Link to='/button'>button</Link>
