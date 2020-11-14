@@ -1,9 +1,7 @@
 import React from 'react';
-import { Ripple, Icon } from '../index';
+import { Ripple, Icon, Loading } from '../index';
 import { classnames } from '../_utils/index';
 import './index.less';
-
-const Loading = () => <div />;
 
 interface IProps {
   disabled?: boolean;
@@ -30,8 +28,7 @@ function Button(props: IProps) {
     type,
     className,
     style,
-    children,
-    onClick
+    children
   } = props;
 
   const cls = {
@@ -47,6 +44,13 @@ function Button(props: IProps) {
   ) : (
     icon
   );
+
+  function onClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (loading || disabled) {
+      return;
+    }
+    props.onClick(event);
+  }
   return (
     <div className={classnames(cls)} style={style} onClick={onClick}>
       {!disabled && !loading && ripple && (
