@@ -12,6 +12,9 @@ function Home() {
           <Link to='/loading'>loading</Link>
         </li>
         <li>
+          <Link to='/Ripple'>Ripple</Link>
+        </li>
+        <li>
           <Link to='/tabs'>tabs</Link>
         </li>
         <li>

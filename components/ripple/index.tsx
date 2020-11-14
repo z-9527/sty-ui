@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { classnames } from '../_utils/index';
+import * as CSS from 'csstype';
 import './index.less';
 
 /**
@@ -8,7 +9,7 @@ import './index.less';
  */
 interface IProps {
   center?: boolean; // 是否中心点触发波纹
-  color?: string; // 波纹颜色
+  color?: CSS.Property.Color; // 波纹颜色
   className?: string;
   style?: React.CSSProperties;
 }

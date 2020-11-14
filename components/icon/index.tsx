@@ -1,9 +1,11 @@
 import React, { CSSProperties } from 'react';
 import { classnames } from '../_utils/index';
+import * as CSS from 'csstype';
 import './index.less';
+
 export interface IconProps {
   size?: number | string;
-  color?: string;
+  color?: CSS.Property.Color;
   type?: string;
   className?: string;
   style?: CSSProperties;
