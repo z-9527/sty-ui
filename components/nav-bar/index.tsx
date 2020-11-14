@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState
 } from 'react';
-import { classnames } from '@/components/_utils/index';
+import { classnames } from '../_utils/index';
 import { Icon } from '../index';
 import './index.less';
 

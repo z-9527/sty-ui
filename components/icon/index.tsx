@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { classnames } from '@/components/_utils/index';
+import { classnames } from '../_utils/index';
 import './index.less';
 export interface IconProps {
   size?: number | string;
