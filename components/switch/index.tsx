@@ -11,7 +11,10 @@ interface SwitchProps {
   loading?: boolean;
   color?: CSS.Property.Color;
   size?: number;
-  onChange: (checked: boolean) => unknown;
+  onChange: (
+    checked: boolean,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => unknown;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -41,7 +44,7 @@ function Switch(props: SwitchProps) {
     }
     e.persist();
     const inputChecked = e.target.checked;
-    props.onChange(inputChecked);
+    props.onChange(inputChecked, e);
     // 如果是非受控模式，内部处理
     if (checked === undefined) {
       setValue(inputChecked);

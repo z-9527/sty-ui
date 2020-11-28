@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './index.less';
 
 function Home() {
   return (
-    <div style={{ background: '#fff', height: '100%' }}>
+    <div style={{ background: '#fff', height: '100%' }} className='home'>
       <ul>
         <li>
           <Link to='/button'>button</Link>
