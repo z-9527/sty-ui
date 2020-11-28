@@ -1,0 +1,76 @@
+@import '../style/default.less';
+
+@cellPrefixCls: sty-cell;
+
+
+.@{cellPrefixCls} {
+  position: relative;
+  display: flex;
+  padding: 10px 16px;
+  line-height: 24px;
+  background-color: #fff;
+  color: @base-text-color;
+  font-size: 14px;
+
+  &-center {
+    align-items: center;
+  }
+
+  &-clickable:active {
+    background-color: #f2f3f5;
+  }
+
+  &::after {
+    position: absolute;
+    box-sizing: border-box;
+    content: ' ';
+    pointer-events: none;
+    right: 0;
+    bottom: 0;
+    left: 16px;
+    border-bottom: 1px solid @base-border-color;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+
+  &-title {
+    flex: 1;
+
+    .@{cellPrefixCls}-label {
+      margin-top: 3px;
+      color: @base-text-label-color;
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+
+  &-value {
+    position: relative;
+    overflow: hidden;
+    color: @base-text-label-color;
+    text-align: right;
+    vertical-align: middle;
+    word-wrap: break-word;
+
+    .sty-switch {
+      font-size: 24px;
+    }
+  }
+
+  .arrow-icon {
+    min-width: 1em;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+    color: @base-text-label-color;
+    margin-left: 5px;
+  }
+
+  &-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

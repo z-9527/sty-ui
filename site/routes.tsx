@@ -12,6 +12,7 @@ const RippleDemo = asyncComponent(() => import('./page/Ripple'));
 const LoadingDemo = asyncComponent(() => import('./page/Loading'));
 const SwitchDemo = asyncComponent(() => import('./page/Switch'));
 const TimelineDemo = asyncComponent(() => import('./page/Timeline'));
+const CellDemo = asyncComponent(() => import('./page/Cell'));
 
 let routes: RouteConfig[] = [
   {
@@ -46,6 +47,10 @@ let routes: RouteConfig[] = [
   {
     path: '/timeline',
     component: TimelineDemo
+  },
+  {
+    path: '/cell',
+    component: CellDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用
