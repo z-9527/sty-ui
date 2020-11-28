@@ -10,6 +10,7 @@ const IconDemo = asyncComponent(() => import('./page/Icon'));
 const NavBarDemo = asyncComponent(() => import('./page/NavBar'));
 const RippleDemo = asyncComponent(() => import('./page/Ripple'));
 const LoadingDemo = asyncComponent(() => import('./page/Loading'));
+const SwitchDemo = asyncComponent(() => import('./page/Switch'));
 
 let routes: RouteConfig[] = [
   {
@@ -36,6 +37,10 @@ let routes: RouteConfig[] = [
   {
     path: '/loading',
     component: LoadingDemo
+  },
+  {
+    path: '/switch',
+    component: SwitchDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用

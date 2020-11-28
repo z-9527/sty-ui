@@ -1,0 +1,75 @@
+@import '../style/default.less';
+
+@switchPrefixCls: sty-switch;
+
+.@{switchPrefixCls} {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+  border-radius: 1em;
+  font-size: 30px;
+  background-color: #e5e5e5;
+  transition: all .3s;
+
+  &::after,
+  &-node {
+    position: absolute;
+    content: '';
+    top: 1.5px;
+    left: 1.5px;
+    width: calc(2em - 3px);
+    height: calc(1em - 3px);
+    border-radius: calc(1em - 3px);
+    background-color: #fff;
+    transition: all .2s;
+    z-index: 1;
+  }
+
+  &-node {
+    width: calc(1em - 3px);
+    transform: translateX(0);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .21);
+    z-index: 2;
+  }
+
+  &&-on {
+    background-color: @base-color;
+
+    &::after {
+      transform: scale(0);
+    }
+
+    .@{switchPrefixCls}-node {
+      transform: translateX(calc(1em - 1px));
+
+      .switch-loading {
+        color: @base-color;
+      }
+    }
+  }
+
+  &&-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .switch-loading {
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+  }
+
+
+  input[type=checkbox] {
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 100%;
+    // border: none;
+    // opacity: 0;
+    display: none;
+  }
+}
