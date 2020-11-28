@@ -18,7 +18,7 @@ function LoadingIcon(type) {
   );
 }
 
-interface IProps {
+interface LoadingProps {
   type?: 'spinner' | 'circular';
   size?: number;
   color?: CSS.Property.Color;
@@ -28,7 +28,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
-function Loading(props: IProps) {
+function Loading(props: LoadingProps) {
   const { type, size, color, vertical, className, children, ...other } = props;
 
   const style: React.CSSProperties = { color };

@@ -1,0 +1,102 @@
+@import '../style/default.less';
+
+@timelinePrefixCls: sty-timeline;
+
+.@{timelinePrefixCls} {
+  padding: 16px;
+
+  &-item {
+    display: flex;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+
+    &-time {
+      width: 40px;
+      flex-shrink: 0;
+      text-align: center;
+      font-size: 14px;
+      color: @timeline-time-color;
+      padding-top: 15px;
+      line-height: 1.5em;
+
+      .@{timelinePrefixCls}-item:first-child & {
+        padding-top: 10px;
+      }
+    }
+
+    &-line-box {
+      position: relative;
+      width: 50px;
+      flex-shrink: 0;
+
+
+      .@{timelinePrefixCls}-item-icon {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        text-align: center;
+        background-color: #fff;
+        color: @timeline-dot-color;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .@{timelinePrefixCls}-item-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        background-color: @timeline-line-color;
+        transform: translateX(-50%);
+      }
+
+      .@{timelinePrefixCls}-item-dot {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background-color: @timeline-dot-color;
+
+        &.active {
+          opacity: 1;
+          background-color: @base-color;
+          border: solid 4px @timeline-dot-boder-color;
+          background-clip: padding-box;
+        }
+      }
+
+    }
+
+    &-content {
+      position: relative;
+      flex: 1;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      color: @timeline-content-color;
+      line-height: 1.5em;
+
+      .@{timelinePrefixCls}-item:first-child & {
+        padding-top: 10px;
+      }
+
+      .@{timelinePrefixCls}-item:not(:last-child) &::after {
+        border-bottom-width: 1px;
+      }
+    }
+
+
+  }
+}

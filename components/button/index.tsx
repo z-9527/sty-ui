@@ -3,7 +3,7 @@ import { Ripple, Icon, Loading } from '../index';
 import { classnames } from '../_utils/index';
 import './index.less';
 
-interface IProps {
+interface ButtonProps {
   disabled?: boolean;
   inline?: boolean;
   loading?: boolean;
@@ -17,7 +17,7 @@ interface IProps {
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function Button(props: IProps) {
+function Button(props: ButtonProps) {
   const {
     disabled,
     inline,
