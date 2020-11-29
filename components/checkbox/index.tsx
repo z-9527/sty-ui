@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { classnames } from '../_utils/index';
 import * as CSS from 'csstype';
@@ -7,8 +6,8 @@ import Group from './Group';
 import './index.less';
 
 export type CheckboxValueType = string | number;
-
 export interface CheckboxProps {
+  type?: 'checkbox' | 'radio';
   value?: CheckboxValueType;
   checked?: boolean; // 是否选中
   defaultChecked?: boolean; // 是否选中
@@ -22,8 +21,35 @@ export interface CheckboxProps {
   style?: React.CSSProperties;
 }
 
+export interface CheckboxOptionType {
+  label: React.ReactNode;
+  value: CheckboxValueType;
+  style?: React.CSSProperties;
+  disabled?: boolean;
+}
+
+export interface GroupProps {
+  type?: 'checkbox' | 'radio';
+  value?: Array<CheckboxValueType>;
+  defaultValue?: Array<CheckboxValueType>;
+  options?: Array<CheckboxOptionType | string>;
+  direction?: 'vertical' | 'horizontal'; // 排列方向
+  shape?: 'square' | 'round'; // 默认图标形状
+  color?: CSS.Property.Color; // 选中颜色
+  disabled?: boolean;
+  cell?: boolean; // 是否配合cell使用
+  onChange?: (
+    list: Array<CheckboxValueType>,
+    optionValue: CheckboxValueType
+  ) => unknown;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
 function Checkbox(props: CheckboxProps) {
   const {
+    type,
     value,
     checked,
     defaultChecked,
@@ -101,7 +127,7 @@ function Checkbox(props: CheckboxProps) {
       style={style}
     >
       <input
-        type='checkbox'
+        type={type}
         disabled={disabled}
         value={value || ''}
         onChange={onChange}
@@ -114,6 +140,7 @@ function Checkbox(props: CheckboxProps) {
 }
 
 Checkbox.defaultProps = {
+  type: 'checkbox',
   disabled: false,
   defaultChecked: false,
   shape: 'square',

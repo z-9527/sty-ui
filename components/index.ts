@@ -7,3 +7,4 @@ export { default as Switch } from './switch';
 export { default as Timeline } from './timeline';
 export { default as Cell } from './cell';
 export { default as Checkbox } from './checkbox';
+export { default as Radio } from './radio';

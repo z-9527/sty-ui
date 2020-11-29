@@ -14,6 +14,7 @@ const SwitchDemo = asyncComponent(() => import('./page/Switch'));
 const TimelineDemo = asyncComponent(() => import('./page/Timeline'));
 const CellDemo = asyncComponent(() => import('./page/Cell'));
 const CheckboxDemo = asyncComponent(() => import('./page/Checkbox'));
+const RadioDemo = asyncComponent(() => import('./page/Radio'));
 
 let routes: RouteConfig[] = [
   {
@@ -56,6 +57,10 @@ let routes: RouteConfig[] = [
   {
     path: '/checkbox',
     component: CheckboxDemo
+  },
+  {
+    path: '/radio',
+    component: RadioDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用

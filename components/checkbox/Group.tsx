@@ -1,34 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react';
 import { classnames } from '../_utils/index';
-import * as CSS from 'csstype';
-import Checkbox, { CheckboxValueType } from './index';
+import Checkbox, { CheckboxValueType, GroupProps } from './index';
 import './index.less';
 
-export interface CheckboxOptionType {
-  label: React.ReactNode;
-  value: CheckboxValueType;
-  style?: React.CSSProperties;
-  disabled?: boolean;
-}
-
-export interface GroupProps {
-  value?: Array<CheckboxValueType>;
-  defaultValue?: Array<CheckboxValueType>;
-  options?: Array<CheckboxOptionType | string>;
-  direction?: 'vertical' | 'horizontal'; // 排列方向
-  shape?: 'square' | 'round'; // 默认图标形状
-  color?: CSS.Property.Color; // 选中颜色
-  disabled?: boolean;
-  cell?: boolean; // 是否配合cell使用
-  onChange?: (list: Array<CheckboxValueType>) => unknown;
-  children?: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
 function Group(props: GroupProps) {
-  const {
+  let {
+    type,
     value,
     defaultValue,
     options,
@@ -42,6 +19,10 @@ function Group(props: GroupProps) {
   } = props;
 
   const [list, setList] = useState(defaultValue);
+
+  if (cell) {
+    direction = 'vertical';
+  }
 
   useEffect(() => {
     if (Array.isArray(value)) {
@@ -72,7 +53,7 @@ function Group(props: GroupProps) {
       SList.delete(optionValue);
     }
     const newList = Array.from(SList);
-    props.onChange(newList);
+    props.onChange(newList, optionValue);
     if (value === undefined) {
       setList(newList);
     }
@@ -89,6 +70,7 @@ function Group(props: GroupProps) {
     >
       {newOptions.map(option => (
         <Checkbox
+          type={type}
           key={option.value.toString()}
           style={option.style}
           value={option.value}
@@ -109,6 +91,7 @@ function Group(props: GroupProps) {
 }
 
 Group.defaultProps = {
+  type: 'checkbox',
   defaultValue: [],
   options: [],
   direction: 'horizontal',
