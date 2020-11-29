@@ -1,0 +1,82 @@
+@import '../style/default.less';
+
+@checkboxPrefixCls: sty-checkbox;
+
+.@{checkboxPrefixCls}-group {
+
+  &&-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+
+    .@{checkboxPrefixCls} {
+      margin-right: 12px;
+    }
+  }
+
+}
+
+.@{checkboxPrefixCls} {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  &-cell{
+    margin-bottom: 0;
+  }
+
+  &-icon {
+    width: 1em;
+    height: 1em;
+    font-size: 20px;
+    line-height: 1em;
+    text-align: center;
+    box-sizing: border-box;
+
+
+    .sty-icon {
+      font-size: 0.8em;
+      border: 1px solid #d9d9d9;
+      color: transparent;
+      transition: all .2s;
+    }
+
+    &&-round {
+      .sty-icon {
+        border-radius: 50%;
+      }
+    }
+
+    &-checked {
+      .sty-icon {
+        background-color: @base-color;
+        border-color: @base-color;
+        color: #fff;
+
+        .@{checkboxPrefixCls}-disabled & {
+          background-color: @base-text-disabled;
+          border-color: @base-text-disabled;
+        }
+      }
+    }
+  }
+
+  &-label {
+    margin-left: 8px;
+    color: @base-text-color;
+    line-height: 20px;
+
+    .@{checkboxPrefixCls}-disabled & {
+      color: @base-text-disabled;
+    }
+  }
+
+  &-disabled {
+    .sty-cell-title {
+      color: @base-text-disabled;
+    }
+  }
+
+  input {
+    display: none;
+  }
+}

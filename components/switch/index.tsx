@@ -11,7 +11,7 @@ interface SwitchProps {
   loading?: boolean;
   color?: CSS.Property.Color;
   size?: number;
-  onChange: (
+  onChange?: (
     checked: boolean,
     event: React.ChangeEvent<HTMLInputElement>
   ) => unknown;
