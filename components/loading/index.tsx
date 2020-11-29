@@ -18,7 +18,7 @@ function LoadingIcon(type) {
   );
 }
 
-interface LoadingProps {
+export interface LoadingProps {
   type?: 'spinner' | 'circular';
   size?: number;
   color?: CSS.Property.Color;

@@ -4,7 +4,7 @@ import React from 'react';
 // import * as CSS from 'csstype';
 import './index.less';
 
-interface SwitchProps {
+export interface SwitchProps {
   className?: string;
   style?: React.CSSProperties;
 }

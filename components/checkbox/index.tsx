@@ -8,7 +8,7 @@ import './index.less';
 
 export type CheckboxValueType = string | number;
 
-interface CheckboxProps {
+export interface CheckboxProps {
   value?: CheckboxValueType;
   checked?: boolean; // 是否选中
   defaultChecked?: boolean; // 是否选中
@@ -105,7 +105,7 @@ function Checkbox(props: CheckboxProps) {
         disabled={disabled}
         value={value || ''}
         onChange={onChange}
-        checked={isChecked}
+        checked={isChecked || false}
       />
       {renderIcon()}
       <div className={'sty-checkbox-label'}>{children}</div>

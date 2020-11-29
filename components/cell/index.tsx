@@ -3,7 +3,7 @@ import { classnames } from '../_utils/index';
 import { Icon, Ripple } from '../index';
 import './index.less';
 
-interface CellProps {
+export interface CellProps {
   title?: React.ReactNode; // 左侧标题
   label?: React.ReactNode; // 描述信息
   clickable?: boolean; // 是否开启点击反馈

@@ -4,7 +4,7 @@ import * as CSS from 'csstype';
 import { Loading } from '../index';
 import './index.less';
 
-interface SwitchProps {
+export interface SwitchProps {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;

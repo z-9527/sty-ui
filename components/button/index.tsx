@@ -3,7 +3,7 @@ import { Ripple, Icon, Loading } from '../index';
 import { classnames } from '../_utils/index';
 import './index.less';
 
-interface ButtonProps {
+export interface ButtonProps {
   disabled?: boolean;
   inline?: boolean;
   loading?: boolean;

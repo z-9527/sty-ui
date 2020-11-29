@@ -3,7 +3,7 @@ import { classnames } from '../_utils/index';
 import { Icon } from '../index';
 import './index.less';
 
-interface TimelineProps {
+export interface TimelineProps {
   showTime?: boolean;
   className?: string;
   children?: React.ReactNode;
@@ -40,7 +40,7 @@ Timeline.defaultProps = {
   showTime: true
 };
 
-interface ItemProps {
+export interface ItemProps {
   showTime?: boolean;
   index?: number;
   length?: number; // 子节点总长度

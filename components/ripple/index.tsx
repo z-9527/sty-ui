@@ -7,7 +7,7 @@ import './index.less';
  * 水波纹效果
  * 原理：在鼠标点击的位置生成一个div，div进行扩散动画，动画结束后删除div。
  */
-interface RippleProps {
+export interface RippleProps {
   center?: boolean; // 是否中心点触发波纹
   color?: CSS.Property.Color; // 波纹颜色
   className?: string;
