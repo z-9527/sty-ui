@@ -9,3 +9,4 @@ export { default as Cell } from './cell';
 export { default as Checkbox } from './checkbox';
 export { default as Radio } from './radio';
 export { default as Toast } from './toast';
+export { default as Popup } from './popup';

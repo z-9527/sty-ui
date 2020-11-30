@@ -16,6 +16,7 @@ const CellDemo = asyncComponent(() => import('./page/Cell'));
 const CheckboxDemo = asyncComponent(() => import('./page/Checkbox'));
 const RadioDemo = asyncComponent(() => import('./page/Radio'));
 const ToastDemo = asyncComponent(() => import('./page/Toast'));
+const PopupDemo = asyncComponent(() => import('./page/Popup'));
 
 let routes: RouteConfig[] = [
   {
@@ -66,6 +67,10 @@ let routes: RouteConfig[] = [
   {
     path: '/toast',
     component: ToastDemo
+  },
+  {
+    path: '/popup',
+    component: PopupDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用
