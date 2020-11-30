@@ -1,0 +1,66 @@
+@import '../style/default.less';
+
+@toastPrefixCls: sty-toast;
+
+.@{toastPrefixCls}-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.@{toastPrefixCls}-text {
+  min-width: 60px;
+  border-radius: 3px;
+  color: #fff;
+  background-color: rgba(58, 58, 58, .9);
+  line-height: 1.5;
+  padding: 9px 15px;
+  max-width: 50%;
+  animation: fadeIn 500ms;
+  text-align: center;
+
+  &.@{toastPrefixCls}-icon {
+    border-radius: 5px;
+    padding: 15px;
+
+    .@{toastPrefixCls}-text-info {
+      margin-top: 6px;
+    }
+  }
+
+  .sty-loading{
+    color: #fff;
+  }
+}
+
+.fadeOut {
+  opacity: 0;
+  animation: fadeOut 500ms;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
