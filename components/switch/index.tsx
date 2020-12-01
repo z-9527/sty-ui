@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { classnames } from '../_utils/index';
 import * as CSS from 'csstype';
-import { Loading } from '../index';
+import { Loading, Cell } from '../index';
 import './index.less';
 
 export interface SwitchProps {
@@ -11,10 +11,9 @@ export interface SwitchProps {
   loading?: boolean;
   color?: CSS.Property.Color;
   size?: number;
-  onChange?: (
-    checked: boolean,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => unknown;
+  children?: React.ReactNode;
+  cell?: boolean; // 是否开启cell模式
+  onChange?: (checked: boolean) => unknown;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -27,6 +26,7 @@ function Switch(props: SwitchProps) {
     loading,
     color,
     size,
+    cell,
     className,
     style = {}
   } = props;
@@ -38,13 +38,18 @@ function Switch(props: SwitchProps) {
     }
   }, [checked]);
 
-  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (loading) {
+  function onChange(e: React.ChangeEvent<HTMLInputElement> | boolean) {
+    if (loading || disabled) {
       return;
     }
-    e.persist();
-    const inputChecked = e.target.checked;
-    props.onChange(inputChecked, e);
+    let inputChecked: boolean;
+    if (typeof e === 'boolean') {
+      inputChecked = e;
+    } else {
+      e.persist();
+      inputChecked = e.target.checked;
+    }
+    props.onChange(inputChecked);
     // 如果是非受控模式，内部处理
     if (checked === undefined) {
       setValue(inputChecked);
@@ -58,6 +63,22 @@ function Switch(props: SwitchProps) {
   if (size) {
     sty.fontSize = `${size}px`;
   }
+
+  function onCellClick(event) {
+    event.persist();
+    if (event.target.nodeName === 'DIV') {
+      onChange(!value);
+    }
+  }
+
+  if (cell) {
+    return (
+      <Cell title={props.children} onClick={onCellClick}>
+        <Switch {...props} checked={value} onChange={setValue} cell={false} />
+      </Cell>
+    );
+  }
+
   return (
     <label
       className={classnames({
@@ -86,6 +107,7 @@ Switch.defaultProps = {
   defaultChecked: false,
   disabled: false,
   loading: false,
+  cell: false,
   onChange: () => undefined
 };
 export default Switch;

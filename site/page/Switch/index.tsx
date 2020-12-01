@@ -1,40 +1,33 @@
 import React, { useState } from 'react';
-import { Switch, Cell } from '@/components/index';
+import { Switch } from '@/components/index';
 
 function SwitchDemo() {
-  const [value, setValue] = useState(false);
-
-  function onClick(event) {
-    event.persist();
-    if (event.target.nodeName === 'DIV') {
-      setValue(!value);
-    }
-  }
-
+  const [value, setValue] = useState(true);
   return (
     <div>
       <div className='demo-block__title'>基础用法</div>
-      <Cell title='默认选中'>
-        <Switch defaultChecked />
-      </Cell>
-      <Cell title='禁用状态'>
-        <Switch defaultChecked disabled />
-      </Cell>
-      <Cell title='加载状态'>
-        <Switch defaultChecked loading />
-      </Cell>
-      <Cell title='自定义颜色'>
-        <Switch defaultChecked color='skyblue' />
-      </Cell>
-      <Cell title='自定义大小' center>
-        <Switch defaultChecked size={27} />
-      </Cell>
-      <Cell title='受控模式' onClick={onClick}>
-        <Switch checked={value} onChange={setValue} />
-      </Cell>
-      <Cell onClick={onClick}>
-        <Switch checked={value} onChange={setValue} />
-      </Cell>
+      <div style={{ padding: '5px 16px' }}>
+        <Switch />
+      </div>
+      <Switch cell defaultChecked>
+        默认选中
+      </Switch>
+      <Switch cell defaultChecked disabled>
+        禁用状态
+      </Switch>
+      <Switch cell defaultChecked loading>
+        加载状态
+      </Switch>
+      <Switch cell defaultChecked color='skyblue'>
+        自定义颜色
+      </Switch>
+      <Switch cell defaultChecked size={27}>
+        自定义大小
+      </Switch>
+      <Switch cell checked={value} onChange={setValue}>
+        受控模式
+      </Switch>
+      <Switch cell checked={value} onChange={setValue}></Switch>
     </div>
   );
 }
