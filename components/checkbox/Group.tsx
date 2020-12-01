@@ -1,9 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { classnames } from '../_utils/index';
-import Checkbox, { CheckboxValueType, GroupProps } from './index';
+import Checkbox, {
+  CheckboxOptionType,
+  CheckboxValueType,
+  GroupProps
+} from './index';
 import './index.less';
 
-function Group(props: GroupProps) {
+function Group<T extends CheckboxValueType>(props: GroupProps<T>) {
   let {
     type,
     value,
@@ -18,7 +22,7 @@ function Group(props: GroupProps) {
     style
   } = props;
 
-  const [list, setList] = useState(defaultValue);
+  const [list, setList] = useState<Array<T>>(defaultValue);
 
   if (cell) {
     direction = 'vertical';
@@ -30,7 +34,7 @@ function Group(props: GroupProps) {
     }
   }, [value]);
 
-  const newOptions = useMemo(() => {
+  const newOptions: Array<CheckboxOptionType<T>> = useMemo(() => {
     if (Array.isArray(options)) {
       return options.map(option => {
         if (typeof option === 'string') {
@@ -39,13 +43,13 @@ function Group(props: GroupProps) {
             value: option
           };
         }
-        return option;
+        return option as CheckboxOptionType<T>;
       });
     }
     return [];
   }, [options]);
 
-  function onChange(isChecked: boolean, optionValue: CheckboxValueType) {
+  function onChange(isChecked: boolean, optionValue: T) {
     const SList = new Set(list);
     if (isChecked) {
       SList.add(optionValue);

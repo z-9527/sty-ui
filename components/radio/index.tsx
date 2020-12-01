@@ -4,11 +4,11 @@ import { CheckboxProps, GroupProps } from '../checkbox';
 
 export type RadioValueType = string | number;
 export interface RadioProps extends CheckboxProps {}
-export interface RadioGroupProps
-  extends Omit<GroupProps, 'value' | 'defaultValue' | 'onChange'> {
-  value?: RadioValueType;
-  defaultValue?: RadioValueType;
-  onChange?: (v: RadioValueType) => unknown;
+export interface RadioGroupProps<T extends RadioValueType>
+  extends Omit<GroupProps<T>, 'value' | 'defaultValue' | 'onChange'> {
+  value?: T;
+  defaultValue?: T;
+  onChange?: (v: T) => unknown;
 }
 
 function Radio(props: RadioProps) {
@@ -22,9 +22,9 @@ Radio.defaultProps = {
   onChange: () => undefined
 };
 
-function RadioGroup(props: RadioGroupProps) {
+function RadioGroup<T extends RadioValueType>(props: RadioGroupProps<T>) {
   const { value, defaultValue, onChange, ...other } = props;
-  const [selectValue, setSelectValue] = useState<RadioValueType>(defaultValue);
+  const [selectValue, setSelectValue] = useState<T>(defaultValue);
 
   useEffect(() => {
     if (value !== undefined) {
@@ -32,7 +32,7 @@ function RadioGroup(props: RadioGroupProps) {
     }
   }, [value]);
 
-  function onCheckChange(list: Array<RadioValueType>, optionValue) {
+  function onCheckChange(list: Array<T>, optionValue: T) {
     setSelectValue(optionValue);
     props.onChange(optionValue);
     if (value === undefined) {

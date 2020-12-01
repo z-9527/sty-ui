@@ -21,27 +21,24 @@ export interface CheckboxProps {
   style?: React.CSSProperties;
 }
 
-export interface CheckboxOptionType {
+export interface CheckboxOptionType<T> {
   label: React.ReactNode;
-  value: CheckboxValueType;
+  value: T;
   style?: React.CSSProperties;
   disabled?: boolean;
 }
 
-export interface GroupProps {
+export interface GroupProps<T extends CheckboxValueType> {
   type?: 'checkbox' | 'radio';
-  value?: Array<CheckboxValueType>;
-  defaultValue?: Array<CheckboxValueType>;
-  options?: Array<CheckboxOptionType | string>;
+  value?: Array<T>;
+  defaultValue?: Array<T>;
+  options?: Array<CheckboxOptionType<T> | T>;
   direction?: 'vertical' | 'horizontal'; // 排列方向
   shape?: 'square' | 'round'; // 默认图标形状
   color?: CSS.Property.Color; // 选中颜色
   disabled?: boolean;
   cell?: boolean; // 是否配合cell使用
-  onChange?: (
-    list: Array<CheckboxValueType>,
-    optionValue: CheckboxValueType
-  ) => unknown;
+  onChange?: (list: Array<T>, optionValue: T) => unknown;
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
