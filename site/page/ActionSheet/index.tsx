@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActionSheet, Cell } from '@/components/index';
+import { ActionSheet, Cell, Empty } from '@/components/index';
 import { ActionSheetProps } from '@/components/action-sheet';
 
 const base = {
@@ -63,7 +63,9 @@ function RippleDemo() {
           setVisible(true);
           setConfig({
             children: (
-              <div style={{ padding: '16px 16px 160px' }}>自定义内容</div>
+              <div>
+                <Empty />
+              </div>
             ),
             title: '标题'
           });
