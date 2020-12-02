@@ -1,0 +1,58 @@
+@import '../style/default.less';
+
+@actionSheetPrefixCls: sty-actionSheet;
+
+.@{actionSheetPrefixCls} {
+  max-height: 80%;
+  overflow-y: auto;
+
+  .sty-button {
+    border: none;
+
+  }
+
+  &-header {
+    position: relative;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 44px;
+    text-align: center;
+
+    .icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0 16px;
+      color: #c8c9cc;
+      font-size: 22px;
+      line-height: inherit;
+    }
+  }
+
+  &-description {
+    padding: 16px;
+    color: #646566;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  &-cancelText {
+    border-top: 8px solid #f7f8fa;
+  }
+
+  &-action {
+    color: #c8c9cc;
+
+    &-name {
+      font-size: 16px;
+      color: #323233;
+    }
+
+    &-subname {
+      margin-left: 4px;
+      color: #646566;
+      font-size: 12px;
+    }
+  }
+}
