@@ -58,7 +58,7 @@ function Home() {
           <Link to='/action-sheet'>action-sheet</Link>
         </li>
         <li>
-          <Link to='/modal'>Modal</Link>
+          <Link to='/dialog'>dialog</Link>
         </li>
         <li>
           <Link to='/image'>image</Link>

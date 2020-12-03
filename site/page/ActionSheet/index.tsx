@@ -16,7 +16,7 @@ const status = {
     { name: '禁用选项', disabled: true }
   ]
 };
-function RippleDemo() {
+function ActionSheetDemo() {
   const [visible, setVisible] = useState(false);
   const [config, setConfig] = useState<ActionSheetProps>({});
   return (
@@ -80,4 +80,4 @@ function RippleDemo() {
     </div>
   );
 }
-export default RippleDemo;
+export default ActionSheetDemo;

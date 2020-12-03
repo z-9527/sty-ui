@@ -5,7 +5,7 @@ import './index.less';
 
 export interface ButtonProps {
   disabled?: boolean;
-  inline?: boolean;
+  inline?: boolean; // 是否是行内按钮
   loading?: boolean;
   ripple?: boolean;
   round?: boolean;
@@ -14,7 +14,7 @@ export interface ButtonProps {
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
-  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 function Button(props: ButtonProps) {

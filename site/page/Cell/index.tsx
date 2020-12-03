@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cell } from '@/components/index';
 
-function RippleDemo() {
+function CellDemo() {
   return (
     <div>
       <div className='demo-block__title'>基础用法</div>
@@ -27,4 +27,4 @@ function RippleDemo() {
     </div>
   );
 }
-export default RippleDemo;
+export default CellDemo;
