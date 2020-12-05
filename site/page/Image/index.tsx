@@ -49,6 +49,16 @@ function ImageDemo() {
           <Image key={index} lazy src={`${img}?index=${index}`} />
         ))}
       </div>
+      <div className='lazy-list-h'>
+        {arr.map((item, index) => (
+          <Image
+            key={index}
+            lazy
+            src={`${img}?index=${index + arr.length}`}
+            style={{ flexShrink: 0 }}
+          />
+        ))}
+      </div>
 
       <div className='demo-block__title'>加载提示</div>
       <div className='list'>
