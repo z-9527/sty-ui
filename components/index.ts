@@ -13,3 +13,4 @@ export { default as Popup } from './popup';
 export { default as ActionSheet } from './action-sheet';
 export { default as Empty } from './empty';
 export { default as Dialog } from './dialog';
+export { default as Image } from './image';
