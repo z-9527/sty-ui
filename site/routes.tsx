@@ -20,6 +20,7 @@ const PopupDemo = asyncComponent(() => import('./page/Popup'));
 const ActionSheetDemo = asyncComponent(() => import('./page/ActionSheet'));
 const DialogDemo = asyncComponent(() => import('./page/Dialog'));
 const ImageDemo = asyncComponent(() => import('./page/Image'));
+const TabsDemo = asyncComponent(() => import('./page/Tabs'));
 
 let routes: RouteConfig[] = [
   {
@@ -86,6 +87,10 @@ let routes: RouteConfig[] = [
   {
     path: '/image',
     component: ImageDemo
+  },
+  {
+    path: '/tabs',
+    component: TabsDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用
