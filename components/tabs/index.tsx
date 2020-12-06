@@ -10,7 +10,7 @@ export interface TabsProps<T> {
   lineColor?: CSS.Property.Color; // 下划线颜色
   tabBarActiveTextColor?: CSS.Property.Color; // // 激活tab文字颜色
   tabBarInactiveTextColor?: CSS.Property.Color; // // 非激活tab文字颜色
-  tabBarPosition?: 'right' | 'left' | 'top' | 'bottom';
+  tabBarPosition?: 'right' | 'left' | 'top' | 'bottom'; // 垂直布局时一定要给高度
   animated?: boolean; // 是否开启切换动画
   forceRender?: boolean; // 隐藏时是否渲染DOM
   children?: React.ReactNode;
@@ -98,7 +98,8 @@ function Tabs<T>(props: TabsProps<T>) {
         return React.cloneElement(item, {
           ...item.props,
           active: activeIndex === index,
-          forceRender
+          forceRender,
+          isVertical
         });
       }
       return null;
@@ -246,6 +247,7 @@ export interface TabPaneProps {
   name?: string | number; // 对应activeKey
   active?: boolean; // 是否是激活面板
   forceRender?: boolean;
+  isVertical?: boolean;
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -257,6 +259,7 @@ const TabPane = (props: TabPaneProps) => {
     active,
     children,
     forceRender,
+    isVertical,
     className,
     style,
     ...other
@@ -264,7 +267,11 @@ const TabPane = (props: TabPaneProps) => {
 
   // 隐藏时是否渲染DOM
   return (
-    <div className={classnames(`${prefixCls}-tabPane`, className)} {...other}>
+    <div
+      className={classnames(`${prefixCls}-tabPane`, className)}
+      style={{ ...style, height: !active && !isVertical && 0 }}
+      {...other}
+    >
       {!active && !forceRender ? null : children}
     </div>
   );
