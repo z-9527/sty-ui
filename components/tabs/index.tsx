@@ -41,13 +41,13 @@ function Tabs<T>(props: TabsProps<T>) {
   const isVertical = ['right', 'left'].includes(tabBarPosition);
 
   useEffect(() => {
-    const index = getActiveIndex(defaultActiveKey) as number;
+    const index = _getValidIndex(getActiveIndex(defaultActiveKey));
     setActiveIndex(index);
   }, []);
 
   useEffect(() => {
     if (activeIndex !== undefined) {
-      const index = getActiveIndex(activeKey) as number;
+      const index = _getValidIndex(getActiveIndex(activeKey));
       setActiveIndex(index);
     }
   }, [activeKey]);
@@ -117,7 +117,7 @@ function Tabs<T>(props: TabsProps<T>) {
     }
   }
 
-  function _getValidIndex(index: number) {
+  function _getValidIndex(index) {
     // 防止索引超过列表长度和小于0
     if (typeof index !== 'number') {
       return 0;
