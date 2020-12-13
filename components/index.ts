@@ -15,3 +15,4 @@ export { default as Empty } from './empty';
 export { default as Dialog } from './dialog';
 export { default as Image } from './image';
 export { default as Tabs } from './tabs';
+export { default as PullRefresh } from './pull-refresh';

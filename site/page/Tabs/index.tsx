@@ -7,7 +7,11 @@ function TabsDemo() {
   return (
     <div className='tabs-demo'>
       <div className='demo-block__title'>基础用法</div>
-      <Tabs onChange={console.log} defaultActiveKey={2}>
+      <Tabs
+        onChange={console.log}
+        defaultActiveKey={2}
+        contentStyle={{ height: 150 }}
+      >
         <Tabs.TabPane title='标签一'>内容一</Tabs.TabPane>
         <Tabs.TabPane title='标签二'>内容二</Tabs.TabPane>
         <Tabs.TabPane title='标签三'>内容三</Tabs.TabPane>
@@ -35,6 +39,7 @@ function TabsDemo() {
         animated={false}
         activeKey={active}
         onChange={({ index }) => setActive(index)}
+        contentStyle={{ height: 150 }}
       >
         <Tabs.TabPane title='标签一'>内容一</Tabs.TabPane>
         <Tabs.TabPane title='标签二'>内容二</Tabs.TabPane>
@@ -47,6 +52,7 @@ function TabsDemo() {
         tabBarActiveTextColor='skyblue'
         activeKey={active}
         onChange={({ index }) => setActive(index)}
+        contentStyle={{ height: 150 }}
       >
         <Tabs.TabPane title='标签一'>内容一</Tabs.TabPane>
         <Tabs.TabPane title='标签二'>内容二</Tabs.TabPane>

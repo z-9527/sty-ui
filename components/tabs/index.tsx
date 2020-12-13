@@ -15,6 +15,8 @@ export interface TabsProps<T> {
   forceRender?: boolean; // 隐藏时是否渲染DOM
   children?: React.ReactNode;
   onChange?: ({ name: T, index: number }) => unknown; // 面板点击切换回调
+  contentClassName?: string; // 内容盒子样式名
+  contentStyle?: React.CSSProperties; // 内容盒子样式
   className?: string;
   style?: React.CSSProperties;
 }
@@ -31,6 +33,8 @@ function Tabs<T>(props: TabsProps<T>) {
     animated,
     forceRender,
     children,
+    contentClassName,
+    contentStyle,
     className,
     style
   } = props;
@@ -39,22 +43,28 @@ function Tabs<T>(props: TabsProps<T>) {
   const line = useRef<HTMLDivElement>();
   const tabsContent = useRef<HTMLDivElement>();
   const isVertical = ['right', 'left'].includes(tabBarPosition);
+  const oldIndexRef = useRef<number>();
 
   useEffect(() => {
     const index = _getValidIndex(getActiveIndex(defaultActiveKey));
-    setActiveIndex(index);
+    setIndex(index);
   }, []);
 
   useEffect(() => {
     if (activeIndex !== undefined) {
       const index = _getValidIndex(getActiveIndex(activeKey));
-      setActiveIndex(index);
+      setIndex(index);
     }
   }, [activeKey]);
 
   useEffect(() => {
     goToTab(activeIndex);
   }, [activeIndex]);
+
+  function setIndex(newIndex) {
+    oldIndexRef.current = activeIndex;
+    setActiveIndex(newIndex);
+  }
 
   function getActiveIndex(key: T) {
     // activeKey可以直接是索引
@@ -113,7 +123,7 @@ function Tabs<T>(props: TabsProps<T>) {
       index
     });
     if (activeKey === undefined) {
-      setActiveIndex(index);
+      setIndex(index);
     }
   }
 
@@ -160,7 +170,7 @@ function Tabs<T>(props: TabsProps<T>) {
 
   // 下划线流体动画效果，先变化长度然后再变化位置或先变化位置再变化长度
   function lineAnimate(index, target: HTMLDivElement) {
-    const oldIndex = activeIndex;
+    const oldIndex = oldIndexRef.current;
     const { offsetWidth, offsetLeft, offsetHeight, offsetTop } = target;
     const move = isVertical ? offsetTop : offsetLeft; // 移动距离
     const direction = isVertical ? 'top' : 'left'; // 移动方向
@@ -223,8 +233,10 @@ function Tabs<T>(props: TabsProps<T>) {
         </div>
       </div>
       <div
+        style={contentStyle}
         ref={tabsContent}
         className={classnames({
+          [contentClassName]: contentClassName,
           [`${prefixCls}-content`]: true,
           [`${prefixCls}-content-animated`]: animated
         })}
