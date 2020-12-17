@@ -56,7 +56,7 @@ function CheckboxDemo() {
         />
       </div>
       <div className='demo-block__title'>cell和受控</div>
-      <div style={{ padding: '0 16px' }}>
+      <div>
         <CheckboxGroup cell options={data2} value={list} onChange={onChange} />
       </div>
     </div>

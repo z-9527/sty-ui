@@ -53,7 +53,7 @@ function RadioDemo() {
         />
       </div>
       <div className='demo-block__title'>cell和受控</div>
-      <div style={{ padding: '0 16px' }}>
+      <div>
         <RadioGroup
           direction='vertical'
           options={data}

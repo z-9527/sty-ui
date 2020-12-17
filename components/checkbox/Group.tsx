@@ -8,12 +8,12 @@ import Checkbox, {
 import './index.less';
 
 function Group<T extends CheckboxValueType>(props: GroupProps<T>) {
-  let {
+  const {
     type,
     value,
     defaultValue,
     options,
-    direction,
+    direction: directionProps,
     shape,
     color,
     disabled,
@@ -23,6 +23,7 @@ function Group<T extends CheckboxValueType>(props: GroupProps<T>) {
   } = props;
 
   const [list, setList] = useState<Array<T>>(defaultValue);
+  let direction = directionProps;
 
   if (cell) {
     direction = 'vertical';

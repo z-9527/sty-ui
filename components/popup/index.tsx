@@ -32,7 +32,7 @@ Popup.defaultProps = {
 };
 
 function Popup(props: PopupProps) {
-  let {
+  const {
     overlay,
     position,
     visible,
@@ -40,7 +40,7 @@ function Popup(props: PopupProps) {
     round,
     closable,
     duration,
-    transitionName,
+    transitionName: transitionNameProps,
     children,
     className,
     style
@@ -51,8 +51,9 @@ function Popup(props: PopupProps) {
       props.onClose();
     }
   }
+  let transitionName = transitionNameProps;
 
-  if (!transitionName) {
+  if (!transitionNameProps) {
     transitionName =
       position === 'center' ? 'sty-fade' : `sty-slide-${position}`;
   }
