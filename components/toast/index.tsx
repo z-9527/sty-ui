@@ -1,50 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { classnames } from '../_utils/index';
-import { Loading } from '../index';
+import { Loading, Overlay } from '../index';
+import { OverlayProps } from '../overlay';
 import './index.less';
 import Icon from '../icon';
 
-export interface ToastProps {
+export interface ToastProps extends OverlayProps {
   type?: 'info' | 'success' | 'fail' | 'loading';
   duration?: number; // 显示时间
   content?: React.ReactNode;
   icon?: React.ReactNode; // 自定义图标
-  onClose?: () => unknown; // 关闭后的回调
   className?: string;
   style?: React.CSSProperties;
 }
 
 function Toast(props: ToastProps) {
-  const { type, duration, content, icon, className, style } = props;
-  const timer = useRef<number>();
+  const { type, duration, content, icon, className, style, ...other } = props;
+  const [visible, setVisible] = useState(true);
   const box = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    startTimer();
-    return () => {
-      closeTimer();
-    };
-  }, []);
-
-  function startTimer() {
+    setVisible(true);
     if (duration) {
-      timer.current = window.setTimeout(() => {
-        closeTimer();
+      setTimeout(() => {
+        setVisible(false);
+        props.onClose();
       }, duration * 1000);
     }
-  }
-
-  function closeTimer() {
-    if (box.current) {
-      box.current.classList.add('fadeOut');
-      setTimeout(() => {
-        props.onClose();
-        clearTimeout(timer.current);
-      }, 500);
-    }
-  }
-
+    return () => {
+      setVisible(false);
+      props.onClose();
+    };
+  }, []);
   function renderIcon() {
     if (type === 'info' && !icon) {
       return;
@@ -61,7 +49,13 @@ function Toast(props: ToastProps) {
   }
 
   return (
-    <div className={'sty-toast-mask'}>
+    <Overlay
+      {...other}
+      visible={visible}
+      onClose={() => setVisible(false)}
+      hasMask={false}
+      animation={{ in: 'fadeIn', out: 'fadeOut' }}
+    >
       <div
         ref={box}
         className={classnames({
@@ -75,7 +69,7 @@ function Toast(props: ToastProps) {
         {renderIcon()}
         <div className={'sty-toast-text-info'}>{content}</div>
       </div>
-    </div>
+    </Overlay>
   );
 }
 
@@ -87,16 +81,17 @@ Toast.defaultProps = {
 
 // 返回关闭函数
 function notice(config: ToastProps) {
-  const div = document.createElement('div');
-  div.className = 'sty-toast-box';
-  document.body.appendChild(div);
-  function onClose() {
-    config.onClose && config.onClose();
-    ReactDOM.unmountComponentAtNode(div);
-    document.body.contains(div) && document.body.removeChild(div);
-  }
-  ReactDOM.render(<Toast {...config} onClose={onClose} />, div);
-  return onClose;
+  const container = document.createElement('div');
+  const unmount = () => {
+    if (config.afterClose) {
+      config.afterClose();
+    }
+    ReactDOM.unmountComponentAtNode(container);
+    container.parentNode.removeChild(container);
+  };
+  document.body.appendChild(container);
+  ReactDOM.render(<Toast {...config} afterClose={unmount} />, container);
+  // return onClose;
 }
 
 export default {

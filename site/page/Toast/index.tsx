@@ -1,8 +1,9 @@
 import React from 'react';
 import { Toast, Button } from '@/components/index';
+import { ToastProps } from '@/components/toast';
 import './index.less';
 
-const config = [
+const config: Array<ToastProps> = [
   { content: '文字提示' },
   { content: '这是一条长文字提示，超过一定字数就会换行' },
   { content: '加载中...', type: 'loading' },
@@ -51,6 +52,7 @@ function ToastDemo() {
           自定义图标
         </Button>
       </div>
+      <div className='demo-block__title'></div>
     </div>
   );
 }
