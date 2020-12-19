@@ -11,6 +11,7 @@ type AnimationType = {
 export interface OverlayProps {
   visible?: boolean; // 是否显示弹层
   hasMask?: boolean; // 是否显示遮罩
+  overlayClosable?: boolean; // 点击遮罩是否可以关闭弹框
   children?: React.ReactNode;
   animation?: AnimationType; // 配置动画的播放方式，支持 { in: 'enter-class', out: 'leave-class' } 的对象参数
   onClose?: () => unknown; // 弹层关闭时触发事件的回调函数
@@ -21,6 +22,7 @@ export interface OverlayProps {
 
 Overlay.defaultProps = {
   hasMask: true,
+  overlayClosable: true,
   onClose: () => undefined,
   afterClose: () => undefined,
   animation: {}
@@ -31,6 +33,7 @@ function Overlay(props: OverlayProps) {
   const {
     visible,
     hasMask,
+    overlayClosable,
     children,
     animation,
     onClose,
@@ -38,6 +41,7 @@ function Overlay(props: OverlayProps) {
     maskClassName,
     maskStyle
   } = props;
+  const wrapperRef = useRef<HTMLDivElement>();
   const contentRef = useRef<HTMLDivElement>();
 
   useLayoutEffect(() => {
@@ -51,14 +55,15 @@ function Overlay(props: OverlayProps) {
   }, [visible]);
 
   function show() {
-    if (animation.in) {
+    if (animation?.in) {
+      wrapperRef.current.style.display = 'block';
       contentRef.current.classList.add(animation.in);
       contentRef.current.classList.remove(animation.out);
     }
   }
   function close() {
     onClose();
-    if (animation.out) {
+    if (animation?.out) {
       contentRef.current.classList.remove(animation.in);
       contentRef.current.classList.add(animation.out);
       contentRef.current.onanimationend = function () {
@@ -69,12 +74,18 @@ function Overlay(props: OverlayProps) {
   }
 
   return (
-    <div className={prefixCls}>
+    <div
+      className={classnames({
+        [prefixCls]: true,
+        open: visible
+      })}
+      ref={wrapperRef}
+    >
       {hasMask && (
         <div
           className={classnames(`${prefixCls}-mask`, maskClassName)}
           style={maskStyle}
-          onClick={onClose}
+          onClick={() => overlayClosable && onClose()}
         />
       )}
       <div ref={contentRef}>{children}</div>
