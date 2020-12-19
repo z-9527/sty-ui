@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { classnames } from '../_utils/index';
+import ReactDOM from 'react-dom';
 import './index.less';
 
 type AnimationType = {
@@ -18,6 +19,12 @@ export interface OverlayProps {
   maskStyle?: React.CSSProperties;
 }
 
+Overlay.defaultProps = {
+  hasMask: true,
+  onClose: () => undefined,
+  afterClose: () => undefined,
+  animation: {}
+};
 const prefixCls = 'sty-overlay';
 
 function Overlay(props: OverlayProps) {
@@ -50,6 +57,7 @@ function Overlay(props: OverlayProps) {
     }
   }
   function close() {
+    onClose();
     if (animation.out) {
       contentRef.current.classList.remove(animation.in);
       contentRef.current.classList.add(animation.out);
@@ -74,10 +82,54 @@ function Overlay(props: OverlayProps) {
   );
 }
 
-Overlay.defaultProps = {
-  hasMask: true,
-  onClose: () => undefined,
-  afterClose: () => undefined,
-  animation: {}
+type ConfigUpdate<T> = T | ((p: T) => T);
+type Result<T> = {
+  close: () => void;
+  update: (c: ConfigUpdate<T>) => void;
 };
+
+function show<T extends OverlayProps>(
+  config: T,
+  Element: React.ComponentType
+): Result<T> {
+  let currentConfig: T = { ...config, visible: true };
+  const container = document.createElement('div');
+  const unmount = () => {
+    if (config.afterClose) {
+      config.afterClose();
+    }
+    ReactDOM.unmountComponentAtNode(container);
+    container.parentNode.removeChild(container);
+  };
+  document.body.appendChild(container);
+
+  function render(c) {
+    ReactDOM.render(<Element {...c} afterClose={unmount} />, container);
+  }
+
+  function close() {
+    currentConfig = { ...currentConfig, visible: false };
+    render(currentConfig);
+  }
+  function update(configUpdate: ConfigUpdate<T>) {
+    if (typeof configUpdate === 'function') {
+      currentConfig = configUpdate(currentConfig);
+    } else {
+      currentConfig = {
+        ...currentConfig,
+        ...configUpdate
+      };
+    }
+    render(currentConfig);
+  }
+
+  render(config);
+
+  return {
+    close,
+    update
+  };
+}
+
+Overlay.show = show;
 export default Overlay;

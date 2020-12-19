@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { classnames } from '../_utils/index';
 import { Loading, Overlay } from '../index';
 import { OverlayProps } from '../overlay';
@@ -16,7 +15,16 @@ export interface ToastProps extends OverlayProps {
 }
 
 function Toast(props: ToastProps) {
-  const { type, duration, content, icon, className, style, ...other } = props;
+  const {
+    visible: visibleProps,
+    type,
+    duration,
+    content,
+    icon,
+    className,
+    style,
+    ...other
+  } = props;
   const [visible, setVisible] = useState(true);
   const box = useRef<HTMLDivElement>();
 
@@ -25,14 +33,15 @@ function Toast(props: ToastProps) {
     if (duration) {
       setTimeout(() => {
         setVisible(false);
-        props.onClose();
       }, duration * 1000);
     }
-    return () => {
-      setVisible(false);
-      props.onClose();
-    };
   }, []);
+
+  useEffect(() => {
+    if (typeof visibleProps === 'boolean') {
+      setVisible(visibleProps);
+    }
+  }, [visibleProps]);
   function renderIcon() {
     if (type === 'info' && !icon) {
       return;
@@ -52,7 +61,6 @@ function Toast(props: ToastProps) {
     <Overlay
       {...other}
       visible={visible}
-      onClose={() => setVisible(false)}
       hasMask={false}
       animation={{ in: 'fadeIn', out: 'fadeOut' }}
     >
@@ -74,69 +82,39 @@ function Toast(props: ToastProps) {
 }
 
 Toast.defaultProps = {
-  duration: 2.5,
+  duration: 2,
   type: 'info',
   onClose: () => undefined
 };
 
-// 返回关闭函数
+// 返回关闭函数和更新函数
 function notice(config: ToastProps) {
-  const container = document.createElement('div');
-  const unmount = () => {
-    if (config.afterClose) {
-      config.afterClose();
-    }
-    ReactDOM.unmountComponentAtNode(container);
-    container.parentNode.removeChild(container);
-  };
-  document.body.appendChild(container);
-  ReactDOM.render(<Toast {...config} afterClose={unmount} />, container);
-  // return onClose;
+  return Overlay.show(config, Toast);
 }
 
 export default {
-  info({ content, duration, icon, onClose, className, style }: ToastProps) {
+  info(config: ToastProps) {
     return notice({
-      content,
-      duration,
-      icon,
-      onClose,
-      type: 'info',
-      className,
-      style
+      ...config,
+      type: 'info'
     });
   },
-  loading({ content, duration, icon, onClose, className, style }: ToastProps) {
+  loading(config: ToastProps) {
     return notice({
-      content,
-      duration,
-      icon,
-      onClose,
-      type: 'loading',
-      className,
-      style
+      ...config,
+      type: 'loading'
     });
   },
-  fail({ content, duration, icon, onClose, className, style }: ToastProps) {
+  fail(config: ToastProps) {
     return notice({
-      content,
-      duration,
-      icon,
-      onClose,
-      type: 'fail',
-      className,
-      style
+      ...config,
+      type: 'fail'
     });
   },
-  success({ content, duration, icon, onClose, className, style }: ToastProps) {
+  success(config: ToastProps) {
     return notice({
-      content,
-      duration,
-      icon,
-      onClose,
-      type: 'success',
-      className,
-      style
+      ...config,
+      type: 'success'
     });
   }
 };
