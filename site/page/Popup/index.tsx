@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Cell, Popup, Radio, Switch } from '@/components/index';
+import { PopupPosition } from '@/components/popup';
 
 function PopupDemo() {
   const [visible, setVisible] = useState(false);
-  const [position, setPosition] = useState<
-    'top' | 'bottom' | 'left' | 'right' | 'center'
-  >('bottom');
+  const [position, setPosition] = useState<PopupPosition>('top');
   const [round, setRound] = useState(false);
   const [closable, setClosable] = useState(true);
 

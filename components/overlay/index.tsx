@@ -55,10 +55,11 @@ function Overlay(props: OverlayProps) {
   }, [visible]);
 
   function show() {
+    wrapperRef.current.style.display = 'block';
     if (animation?.in) {
-      wrapperRef.current.style.display = 'block';
       contentRef.current.classList.add(animation.in);
       contentRef.current.classList.remove(animation.out);
+      contentRef.current.onanimationend = null;
     }
   }
   function close() {
@@ -68,9 +69,22 @@ function Overlay(props: OverlayProps) {
       contentRef.current.classList.add(animation.out);
       contentRef.current.onanimationend = function () {
         contentRef.current.onanimationend = null;
+        wrapperRef.current.style.display = 'none';
         afterClose();
       };
+    } else {
+      wrapperRef.current.style.display = 'none';
+      afterClose();
     }
+  }
+
+  function renderContent() {
+    if (React.Children.only(children)) {
+      return React.cloneElement(children as React.ReactElement, {
+        ref: contentRef
+      });
+    }
+    return <div ref={contentRef}>{children}</div>;
   }
 
   return (
@@ -88,7 +102,7 @@ function Overlay(props: OverlayProps) {
           onClick={() => overlayClosable && onClose()}
         />
       )}
-      <div ref={contentRef}>{children}</div>
+      {renderContent()}
     </div>
   );
 }
