@@ -7,6 +7,7 @@
   padding: 15px 0 0 0;
   border-radius: 7px;
   overflow-y: auto;
+  will-change: transform;
 
   &-header {
     font-size: 18px;
@@ -22,6 +23,7 @@
     line-height: 20px;
     word-wrap: break-word;
     word-break: break-all;
+    text-align: center;
   }
 
   &-footer {
@@ -66,27 +68,38 @@
   }
 }
 
-
-.sty-zoom-enter {
-  opacity: 0;
-  transform: translate3d(-50%, -50%, 0) scale(0, 0); //多写一个translate3d是因为transform会覆盖，translate3d一定要写在前面否则形变中心不对
+.sty-zoom-in{
+  animation: zoomIn 300ms;
 }
 
-.sty-zoom-enter-active {
-  opacity: 1;
-  transform: translate3d(-50%, -50%, 0) scale(1, 1);
-  transition: opacity 300ms, transform 300ms;
-  transition-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+.sty-zoom-out{
+  animation: zoomOut 300ms;
 }
 
-.sty-zoom-exit {
-  opacity: 1;
-  transform: translate3d(-50%, -50%, 0) scale(1, 1);
+@keyframes zoomIn{
+  from{
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0.2, 0.2); //多写一个translate3d是因为transform会覆盖，translate3d一定要写在前面否则形变中心不对
+  }
+  to{
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1, 1);
+    transition: opacity 300ms, transform 300ms;
+    transition-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  }
 }
 
-.sty-zoom-exit-active {
-  opacity: 0;
-  transform: translate3d(-50%, -50%, 0) scale(0, 0);
-  transition: opacity 300ms, transform 300ms;
-  transition-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+@keyframes zoomOut{
+  from{
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1, 1);
+  }
+  to{
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0, 0);
+    transition: opacity 300ms, transform 300ms;
+    transition-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+  }
 }
+
+

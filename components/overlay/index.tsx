@@ -63,7 +63,6 @@ function Overlay(props: OverlayProps) {
     }
   }
   function close() {
-    onClose();
     if (animation?.out) {
       contentRef.current.classList.remove(animation.in);
       contentRef.current.classList.add(animation.out);
@@ -117,7 +116,16 @@ function show<T extends OverlayProps>(
   config: T,
   Element: React.ComponentType
 ): Result<T> {
-  let currentConfig: T = { ...config, visible: true };
+  let currentConfig: T = {
+    ...config,
+    visible: true,
+    onClose: () => {
+      if (config.onClose) {
+        config.onClose();
+      }
+      close();
+    }
+  };
   const container = document.createElement('div');
   const unmount = () => {
     if (config.afterClose) {
@@ -133,7 +141,16 @@ function show<T extends OverlayProps>(
   }
 
   function close() {
-    currentConfig = { ...currentConfig, visible: false };
+    currentConfig = {
+      ...currentConfig,
+      visible: false,
+      onClose: () => {
+        if (config.onClose) {
+          config.onClose();
+        }
+        close();
+      }
+    };
     render(currentConfig);
   }
   function update(configUpdate: ConfigUpdate<T>) {
@@ -148,7 +165,7 @@ function show<T extends OverlayProps>(
     render(currentConfig);
   }
 
-  render(config);
+  render(currentConfig);
 
   return {
     close,

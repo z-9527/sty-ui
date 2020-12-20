@@ -32,6 +32,7 @@ function Toast(props: ToastProps) {
     setVisible(true);
     if (duration) {
       setTimeout(() => {
+        props.onClose();
         setVisible(false);
       }, duration * 1000);
     }

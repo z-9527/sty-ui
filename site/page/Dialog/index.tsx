@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Dialog, Cell, Button } from '@/components/index';
 import { DialogProps } from '@/components/dialog';
 
-function asyncClose() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve();
-    }, 2000);
-  });
-}
-
 function DialogDemo() {
   const [visible, setVisible] = useState(false);
   const [config, setConfig] = useState<DialogProps>({});
+  function asyncClose() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+        setVisible(false);
+      }, 2000);
+    });
+  }
   return (
     <div>
       <div className='demo-block__title'>基础用法</div>
@@ -64,7 +64,7 @@ function DialogDemo() {
       />
       <div className='demo-block__title'>更多按钮</div>
       <Cell
-        title='异步关闭'
+        title='更多按钮'
         arrow='right'
         onClick={() => {
           setConfig({
@@ -86,9 +86,45 @@ function DialogDemo() {
         }}
       />
 
-      <Dialog visible={visible} onCancel={() => setVisible(false)} {...config}>
+      <Dialog
+        visible={visible}
+        onOk={() => {
+          console.log('ok');
+          setVisible(false);
+        }}
+        onCancel={() => {
+          console.log('onCancel');
+          setVisible(false);
+        }}
+        {...config}
+      >
         {config.children}
       </Dialog>
+
+      <div className='demo-block__title'>组件调用</div>
+      <Cell
+        title='提示弹窗'
+        arrow='right'
+        onClick={() => {
+          Dialog.show({
+            title: '提示',
+            content: '这是提示弹窗'
+          });
+        }}
+      />
+      <Cell
+        title='确认弹窗'
+        arrow='right'
+        onClick={() => {
+          Dialog.confirm({
+            title: '提示',
+            content: '这是确认弹窗',
+            onOk: () => console.log('ok'),
+            onCancel: () => console.log('onCancel'),
+            onClose: () => console.log('onClose')
+          });
+        }}
+      />
     </div>
   );
 }

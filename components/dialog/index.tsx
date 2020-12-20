@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Popup, { PopupProps } from '../popup';
 import { ButtonProps } from '../button';
-import { Button } from '../index';
+import { Button, Overlay } from '../index';
 import './index.less';
 import { classnames } from '../_utils';
 
@@ -9,6 +9,7 @@ export interface DialogProps extends PopupProps {
   title?: React.ReactNode; // 弹窗标题
   okProps?: ButtonProps; // 确定按钮的属性对象
   cancelProps?: ButtonProps; // 取消按钮的属性对象
+  content?: React.ReactNode;
   /**
    * footerActions
    * 指定确定按钮和取消按钮是否存在以及如何排列,<br><br>**可选值**：
@@ -32,7 +33,9 @@ function Dialog(props: DialogProps) {
     cancelProps,
     footerActions,
     footer,
+    content,
     children,
+    animation,
     onOk: onPropsOk,
     onCancel: onPropsCancel,
     ...other
@@ -63,6 +66,11 @@ function Dialog(props: DialogProps) {
     );
   }
 
+  function onCancel() {
+    onPropsCancel();
+    props.onClose();
+  }
+
   function renderButton(ActionType: 'ok' | 'cancel') {
     if (ActionType === 'ok') {
       return (
@@ -83,7 +91,7 @@ function Dialog(props: DialogProps) {
         <Button
           key={ActionType}
           {...cancelProps}
-          onClick={onPropsCancel}
+          onClick={onCancel}
           className={classnames(`${prefixCls}-button`, cancelProps?.className)}
         >
           {cancelProps?.children !== undefined ? cancelProps.children : '取消'}
@@ -98,26 +106,27 @@ function Dialog(props: DialogProps) {
       setLoading(true);
       (result as Promise<unknown>)
         .then(() => {
-          onPropsCancel();
+          props.onClose();
         })
         .finally(() => {
           setLoading(false);
         });
     } else {
-      onPropsCancel();
+      props.onClose();
     }
   }
-
   return (
     <Popup
       {...other}
       position='center'
+      overlayClosable={false}
       className={classnames(prefixCls, props.className)}
-      transitionName='sty-zoom'
-      onClose={onPropsCancel}
+      animation={animation || { in: 'sty-zoom-in', out: 'sty-zoom-out' }}
     >
       {title && <div className={`${prefixCls}-header`}>{title}</div>}
-      {children && <div className={`${prefixCls}-body`}>{children}</div>}
+      {(children || content) && (
+        <div className={`${prefixCls}-body`}>{children || content}</div>
+      )}
       {renderFooter()}
     </Popup>
   );
@@ -127,6 +136,28 @@ Dialog.defaultProps = {
   title: '标题',
   footerActions: ['cancel', 'ok'],
   onOk: () => undefined,
-  onCancel: () => undefined
+  onCancel: () => undefined,
+  onClose: () => undefined
 };
+
+Dialog.show = function (config: DialogProps) {
+  return Overlay.show(
+    {
+      footerActions: ['ok'],
+      ...config
+    },
+    Dialog
+  );
+};
+
+Dialog.confirm = function (config: DialogProps) {
+  return Overlay.show(
+    {
+      footerActions: ['cancel', 'ok'],
+      ...config
+    },
+    Dialog
+  );
+};
+
 export default Dialog;
