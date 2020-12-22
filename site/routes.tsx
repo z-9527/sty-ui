@@ -22,6 +22,7 @@ const DialogDemo = asyncComponent(() => import('./page/Dialog'));
 const ImageDemo = asyncComponent(() => import('./page/Image'));
 const TabsDemo = asyncComponent(() => import('./page/Tabs'));
 const PullRefreshDemo = asyncComponent(() => import('./page/PullRefresh'));
+const PickerDemo = asyncComponent(() => import('./page/Picker'));
 
 let routes: RouteConfig[] = [
   {
@@ -96,6 +97,10 @@ let routes: RouteConfig[] = [
   {
     path: '/pull-refresh',
     component: PullRefreshDemo
+  },
+  {
+    path: '/picker',
+    component: PickerDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用

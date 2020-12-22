@@ -5,10 +5,17 @@ import { Icon, Cell } from '../index';
 import Group from './Group';
 import './index.less';
 
-export type CheckboxValueType = string | number;
+export type OptionValueType = string | number;
+export type OptionObjType<T = OptionValueType> = {
+  label: React.ReactNode;
+  value: T;
+  style?: React.CSSProperties;
+  disabled?: boolean;
+};
+export type CheckboxOptionType<T = OptionValueType> = OptionObjType<T> | T;
 export interface CheckboxProps {
   type?: 'checkbox' | 'radio';
-  value?: CheckboxValueType;
+  value?: OptionValueType;
   checked?: boolean; // 是否选中
   defaultChecked?: boolean; // 是否选中
   disabled?: boolean; // 是否禁用
@@ -20,19 +27,11 @@ export interface CheckboxProps {
   className?: string;
   style?: React.CSSProperties;
 }
-
-export interface CheckboxOptionType<T> {
-  label: React.ReactNode;
-  value: T;
-  style?: React.CSSProperties;
-  disabled?: boolean;
-}
-
-export interface GroupProps<T extends CheckboxValueType> {
+export interface GroupProps<T extends OptionValueType> {
   type?: 'checkbox' | 'radio';
   value?: Array<T>;
   defaultValue?: Array<T>;
-  options?: Array<CheckboxOptionType<T> | T>;
+  options?: Array<CheckboxOptionType<T>>;
   direction?: 'vertical' | 'horizontal'; // 排列方向
   shape?: 'square' | 'round'; // 默认图标形状
   color?: CSS.Property.Color; // 选中颜色

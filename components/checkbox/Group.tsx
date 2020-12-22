@@ -1,13 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { classnames } from '../_utils/index';
-import Checkbox, {
-  CheckboxOptionType,
-  CheckboxValueType,
-  GroupProps
-} from './index';
+import Checkbox, { OptionObjType, OptionValueType, GroupProps } from './index';
 import './index.less';
 
-function Group<T extends CheckboxValueType>(props: GroupProps<T>) {
+function Group<T extends OptionValueType>(props: GroupProps<T>) {
   const {
     type,
     value,
@@ -35,16 +31,16 @@ function Group<T extends CheckboxValueType>(props: GroupProps<T>) {
     }
   }, [value]);
 
-  const newOptions: Array<CheckboxOptionType<T>> = useMemo(() => {
+  const newOptions: Array<OptionObjType<T>> = useMemo(() => {
     if (Array.isArray(options)) {
       return options.map(option => {
-        if (typeof option === 'string') {
+        if (typeof option === 'string' || typeof option === 'number') {
           return {
             label: option,
             value: option
           };
         }
-        return option as CheckboxOptionType<T>;
+        return option as OptionObjType<T>;
       });
     }
     return [];
