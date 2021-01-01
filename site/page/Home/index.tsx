@@ -4,7 +4,10 @@ import './index.less';
 
 function Home() {
   return (
-    <div style={{ background: '#fff', height: '100%' }} className='home'>
+    <div
+      style={{ background: '#fff', height: '100%', overflow: 'auto' }}
+      className='home'
+    >
       <ul>
         <li>
           <Link to='/button'>button</Link>

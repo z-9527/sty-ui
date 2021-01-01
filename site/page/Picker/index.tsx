@@ -92,7 +92,7 @@ function onVisibleChange(visible) {
 function PickerDemo() {
   const [loading, setLoading] = useState(false);
   const [columns, setColumns] = useState([]);
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState(['周三', '晚上']);
 
   return (
     <div>
@@ -149,14 +149,12 @@ function PickerDemo() {
       <PickerPanel
         dataSource={date}
         value={value}
-        onChange={v => setValue(v)}
+        onChange={(v: Array<string>) => {
+          console.log('v: ', v);
+          setValue(v);
+        }}
       />
-      <PickerPanel
-        dataSource={date}
-        value={value}
-        onChange={v => setValue(v)}
-        style={{ marginTop: 30 }}
-      />
+      <PickerPanel dataSource={date} value={value} style={{ marginTop: 30 }} />
     </div>
   );
 }
