@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CheckboxOptionType } from '../checkbox';
+import { CheckboxOptionType, OptionObjType } from '../checkbox';
 import { Popup, Cell } from '../index';
 import PickerPanel from './PickerPanel';
 import './index.less';
@@ -8,7 +8,13 @@ const prefixCls = 'sty-picker';
 
 export type PickerValueType = Array<string | number>;
 export type ColumnOptions = Array<CheckboxOptionType>;
-export type PickerDataSourceType = Array<ColumnOptions> | ColumnOptions;
+export interface CascadeType extends OptionObjType {
+  children?: Array<CascadeType>;
+}
+export type PickerDataSourceType =
+  | Array<ColumnOptions>
+  | ColumnOptions
+  | Array<CascadeType>;
 
 export interface PickerPanelProps {
   value?: PickerValueType;

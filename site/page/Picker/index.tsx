@@ -28,53 +28,51 @@ const date2: PickerDataSourceType = [
   ]
 ];
 
-const data3 = [
-  [
-    {
-      label: '浙江',
-      value: '浙江',
-      children: [
-        {
-          label: '杭州',
-          value: '杭州',
-          children: [
-            { label: '西湖区', value: '西湖区' },
-            { label: '余杭区', value: '余杭区' }
-          ]
-        },
-        {
-          label: '温州',
-          value: '温州',
-          children: [
-            { label: '鹿城区', value: '鹿城区' },
-            { label: '瓯海区', value: '瓯海区' }
-          ]
-        }
-      ]
-    },
-    {
-      label: '福建',
-      value: '福建',
-      children: [
-        {
-          label: '福州',
-          value: '福州',
-          children: [
-            { label: '鼓楼区', value: '鼓楼区' },
-            { label: '台江区', value: '台江区' }
-          ]
-        },
-        {
-          label: '厦门',
-          value: '厦门',
-          children: [
-            { label: '思明区', value: '思明区' },
-            { label: '海沧区', value: '海沧区' }
-          ]
-        }
-      ]
-    }
-  ]
+const cascadeData = [
+  {
+    label: '浙江',
+    value: '浙江',
+    children: [
+      {
+        label: '杭州',
+        value: '杭州',
+        children: [
+          { label: '西湖区', value: '西湖区' },
+          { label: '余杭区', value: '余杭区' }
+        ]
+      },
+      {
+        label: '温州',
+        value: '温州',
+        children: [
+          { label: '鹿城区', value: '鹿城区' },
+          { label: '瓯海区', value: '瓯海区' }
+        ]
+      }
+    ]
+  },
+  {
+    label: '福建',
+    value: '福建',
+    children: [
+      {
+        label: '福州',
+        value: '福州',
+        children: [
+          { label: '鼓楼区', value: '鼓楼区' },
+          { label: '台江区', value: '台江区' }
+        ]
+      },
+      {
+        label: '厦门',
+        value: '厦门',
+        children: [
+          { label: '思明区', value: '思明区' },
+          { label: '海沧区', value: '海沧区' }
+        ]
+      }
+    ]
+  }
 ];
 function onChange(v, index) {
   console.log('onChange: ', v, 'col: ', index);
@@ -144,6 +142,9 @@ function PickerDemo() {
         }}
       >
         动态设置选项
+      </Picker>
+      <Picker title='级联选择' dataSource={cascadeData} onChange={onChange}>
+        级联选择
       </Picker>
       <div className='demo-block__title'>面板用法(演示受控)</div>
       <PickerPanel
