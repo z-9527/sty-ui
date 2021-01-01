@@ -61,7 +61,9 @@ function PickerPanel(props: PickerPanelProps) {
     setValueList(pre => {
       const arr = pre.slice();
       arr[index] = v;
-      onPropsChange(arr, index);
+      if (JSON.stringify(pre) !== JSON.stringify(arr)) {
+        onPropsChange(arr, index);
+      }
       return arr;
     });
   }

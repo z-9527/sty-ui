@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PickerColumnProps } from './index';
 import { OptionObjType } from '../checkbox';
 import { useTouch } from '../hooks';
-import { classnames } from '../_utils';
+import { classnames, range } from '../_utils';
 
 const prefixCls = 'sty-picker-panel';
 const DEFAULT_DURATION = 300;
@@ -20,7 +20,8 @@ function PickerColumn(props: PickerColumnProps) {
     if (!Array.isArray(list)) {
       return [];
     }
-    return list.map(option => {
+    const arr = list.filter(item => item); // 过滤空值
+    return arr.map(option => {
       if (typeof option === 'string' || typeof option === 'number') {
         return {
           label: option,
@@ -43,7 +44,7 @@ function PickerColumn(props: PickerColumnProps) {
   useEffect(() => {
     const index = getIndex(value);
     setIndex(index);
-  }, [value]);
+  }, [value, newList]);
 
   function onTouchStart() {
     startTranslateY.current = translateY;
@@ -55,7 +56,7 @@ function PickerColumn(props: PickerColumnProps) {
     }
     let move = startTranslateY.current + touch.moveY;
 
-    move = Math.min(ITEM_HEIGHT, Math.max(move, -ITEM_HEIGHT * newList.length)); // 限制偏移区间 下滑不能超过中线下的第一个，上滑不能超过中线上的第一个
+    move = range(move, -ITEM_HEIGHT * newList.length, ITEM_HEIGHT); // 限制偏移区间 下滑不能超过中线下的第一个，上滑不能超过中线上的第一个
     setTranslateY(move);
   }
   function onTouchEnd() {
@@ -67,7 +68,7 @@ function PickerColumn(props: PickerColumnProps) {
   // 主要是解决disabled选项
   function adjustIndex(index) {
     const arr = newList.slice();
-    index = Math.min(arr.length - 1, Math.max(0, index));
+    index = range(index, 0, arr.length - 1);
     for (let i = index; i < arr.length; i++) {
       if (!arr[i].disabled) {
         return i;
@@ -82,19 +83,14 @@ function PickerColumn(props: PickerColumnProps) {
   }
 
   function getIndexByOffset(offset) {
-    return Math.min(
-      newList.length - 1,
-      Math.max(0, Math.round(-offset / ITEM_HEIGHT))
-    ); // 索引区间 [0,length-1]
+    return range(Math.round(-offset / ITEM_HEIGHT), 0, newList.length - 1);
   }
 
   function setIndex(index) {
     index = adjustIndex(index);
     setActiveIndex(index);
     setTranslateY(-44 * index);
-    if (index !== activeIndex) {
-      onChange(newList[index].value);
-    }
+    newList[index] !== undefined && onChange(newList[index].value);
   }
 
   function getIndex(v) {
@@ -105,7 +101,6 @@ function PickerColumn(props: PickerColumnProps) {
     }
     return index;
   }
-
   return (
     <div
       className={`${prefixCls}-column`}

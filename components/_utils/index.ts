@@ -60,3 +60,11 @@ export function throttle(func, interval = 100) {
     }
   };
 }
+
+// 取数范围[min,max]
+export function range(num: number, min: number, max: number): number {
+  if (min > max) {
+    [min, max] = [max, min];
+  }
+  return Math.min(Math.max(num, min), max);
+}

@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Picker } from '@/components/index';
 import { PickerDataSourceType } from '@/components/picker';
 
+const PickerPanel = Picker.PickerPanel;
+
 const cities = ['杭州', '宁波', '温州', '绍兴', '湖州', '嘉兴', '金华', '衢州'];
+const cities2 = {
+  浙江: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+  福建: ['福州', '厦门', '莆田', '三明', '泉州']
+};
 const date = [
   ['周一', '周二', '周三', '周四', '周五'],
   ['上午', '下午', '晚上']
@@ -70,20 +76,24 @@ const data3 = [
     }
   ]
 ];
+function onChange(v, index) {
+  console.log('onChange: ', v, 'col: ', index);
+}
+function onOk(v) {
+  console.log('onOk: ', v);
+}
+function onCancel() {
+  console.log('onCancel');
+}
+function onVisibleChange(visible) {
+  console.log('onVisibleChange', visible);
+}
 
 function PickerDemo() {
-  function onChange(v, index) {
-    console.log('onChange: ', v, index);
-  }
-  function onOk(v) {
-    console.log('onOk: ', v);
-  }
-  function onCancel() {
-    console.log('onCancel');
-  }
-  function onVisibleChange(visible) {
-    console.log('onVisibleChange', visible);
-  }
+  const [loading, setLoading] = useState(false);
+  const [columns, setColumns] = useState([]);
+  const [value, setValue] = useState([]);
+
   return (
     <div>
       <div className='demo-block__title'>基础用法</div>
@@ -97,7 +107,12 @@ function PickerDemo() {
       >
         单列选择
       </Picker>
-      <Picker title='多列选择' dataSource={date} onOk={onOk}>
+      <Picker
+        title='多列选择'
+        dataSource={date}
+        onOk={onOk}
+        onChange={onChange}
+      >
         多列选择
       </Picker>
       <Picker title='加载状态' dataSource={cities} loading>
@@ -106,6 +121,42 @@ function PickerDemo() {
       <Picker title='禁用状态' dataSource={date2} onOk={onOk}>
         禁用状态/自定义样式
       </Picker>
+      <Picker
+        title='动态设置选项'
+        dataSource={columns}
+        onOk={onOk}
+        loading={loading}
+        onVisibleChange={visible => {
+          if (visible && !columns.length) {
+            setLoading(true);
+            setTimeout(() => {
+              setColumns([Object.keys(cities2), cities2['浙江']]);
+              setLoading(false);
+            }, 2000);
+          }
+        }}
+        onChange={(values, col) => {
+          if (col === 0 && values) {
+            const list = columns.slice();
+            list[1] = cities2[values[0]];
+            setColumns(list);
+          }
+        }}
+      >
+        动态设置选项
+      </Picker>
+      <div className='demo-block__title'>面板用法(演示受控)</div>
+      <PickerPanel
+        dataSource={date}
+        value={value}
+        onChange={v => setValue(v)}
+      />
+      <PickerPanel
+        dataSource={date}
+        value={value}
+        onChange={v => setValue(v)}
+        style={{ marginTop: 30 }}
+      />
     </div>
   );
 }

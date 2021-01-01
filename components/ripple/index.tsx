@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { classnames } from '../_utils/index';
+import { classnames, range } from '../_utils/index';
 import * as CSS from 'csstype';
 import './index.less';
 
@@ -42,7 +42,7 @@ function Ripple(props: RippleProps) {
   function onTouchEnd() {
     const { width, height } = point.current;
     const max = Math.max(height, width);
-    const duration = Math.min(2, Math.max(0.6, max / 400)); // [0.6,2]
+    const duration = range(max / 400, 0.6, 2); // [0.6,2]
 
     shadowDiv.current.style.transition = `transform ${duration}s ease-in-out 0s, opacity ${
       duration - 0.3

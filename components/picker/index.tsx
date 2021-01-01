@@ -15,7 +15,7 @@ export interface PickerPanelProps {
   defaultValue?: PickerValueType;
   dataSource?: PickerDataSourceType;
   loading?: boolean;
-  onChange?: (val: PickerValueType, index: boolean) => unknown;
+  onChange?: (val: PickerValueType, index: number) => unknown;
   visible?: boolean; // 这个属性的作用就是当在弹窗里使用picker，弹出层显示时需要重新计算高度，默认为true
   className?: string;
   style?: React.CSSProperties;
@@ -122,4 +122,6 @@ Picker.defaultProps = {
   onVisibleChange: () => undefined,
   onChange: () => undefined
 };
+Picker.PickerPanel = PickerPanel;
+
 export default Picker;

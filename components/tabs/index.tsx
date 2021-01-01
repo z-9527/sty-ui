@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { classnames } from '../_utils/index';
+import { classnames, range } from '../_utils/index';
 import * as CSS from 'csstype';
 import './index.less';
 
@@ -133,7 +133,7 @@ function Tabs<T>(props: TabsProps<T>) {
       return 0;
     }
     const count = React.Children.count(children);
-    return Math.min(count - 1, Math.max(0, index));
+    return range(index, 0, count - 1);
   }
 
   function goToTab(index: number) {
