@@ -18,3 +18,4 @@ export { default as Tabs } from './tabs';
 export { default as PullRefresh } from './pull-refresh';
 export { default as Overlay } from './overlay';
 export { default as Picker } from './picker';
+export { default as Swipe } from './swipe';

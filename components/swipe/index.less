@@ -1,0 +1,76 @@
+@import '../style/default.less';
+
+@swipePrefixCls: sty-swipe;
+
+.@{swipePrefixCls}-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 150px;
+
+  .@{swipePrefixCls} {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    &-item {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
+  .@{swipePrefixCls}-dots-box {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    bottom: 0;
+    width: 100%;
+    height: 18px;
+    text-align: center;
+    font-size: 18px;
+    color: #000;
+
+    .@{swipePrefixCls}-dot {
+      display: block;
+      width: 8px;
+      height: 8px;
+      margin: 0 3px;
+      border-radius: 50%;
+      background: #ccc;
+
+      &.active {
+        background-color: #fff;
+      }
+    }
+  }
+
+  &&_vertical {
+
+    .@{swipePrefixCls} {
+      flex-direction: column;
+    }
+
+    .@{swipePrefixCls}-dots-box {
+      flex-direction: column;
+      width: 18px;
+      height: 100%;
+      left: 2px;
+
+      .@{swipePrefixCls}-dot {
+        margin: 3px 0;
+      }
+    }
+  }
+}
+
+
+
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}

@@ -20,11 +20,9 @@ function useTouch<T extends HTMLElement>(
     if (DOM) {
       DOM.addEventListener('touchstart', onTouchStart);
       DOM.addEventListener('touchmove', onTouchMove);
-      DOM.addEventListener('touchend', onTouchEnd);
       return () => {
         DOM.removeEventListener('touchstart', onTouchStart);
         DOM.removeEventListener('touchmove', onTouchMove);
-        DOM.removeEventListener('touchend', onTouchEnd);
       };
     }
   }, []);
@@ -56,9 +54,6 @@ function useTouch<T extends HTMLElement>(
       moveY,
       direction: Math.abs(moveX) > Math.abs(moveY) ? 'horizontal' : 'vertical'
     });
-  }
-  function onTouchEnd() {
-    setTouch(null);
   }
 
   return [touch, DOMRef];
