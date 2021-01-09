@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CheckboxOptionType, OptionObjType } from '../checkbox';
-import { Popup, Cell } from '../index';
+import { CellPopup } from '../index';
 import PickerPanel from './PickerPanel';
+import { CellPopupProps } from '../cell-popup';
 import './index.less';
 
 const prefixCls = 'sty-picker';
@@ -34,10 +35,10 @@ export interface PickerColumnProps {
   onChange?: (selected: string | number) => unknown;
 }
 
-export interface PickerProps extends PickerPanelProps {
+export interface PickerProps
+  extends PickerPanelProps,
+    Omit<CellPopupProps, 'onOk'> {
   title?: React.ReactNode; // 标题
-  okText?: React.ReactNode; // 确定按钮文字
-  cancelText?: React.ReactNode; // 取消按钮文字
   children?: React.ReactNode;
   onOk?: (val: PickerValueType) => unknown; // 确定按钮回调
   onCancel?: () => unknown; // 取消按钮回调
@@ -49,13 +50,16 @@ function Picker(props: PickerProps) {
     value: valueProps,
     defaultValue: defaultValueProps,
     onChange: onPropsChange,
+    cellTitle,
+    cellContent,
+    popupTitle,
     title,
     okText,
     cancelText,
     children,
     onOk: onOkProps,
     onCancel: onCancelProps,
-    onVisibleChange,
+    onVisibleChange: onVisibleChangeProps,
     ...other
   } = props;
   const [value, setValue] = useState<PickerValueType>(defaultValueProps || []);
@@ -70,53 +74,40 @@ function Picker(props: PickerProps) {
     }
   }, [valueProps]);
 
-  useEffect(() => {
-    onVisibleChange(visible);
-  }, [visible]);
-
   function onCancel() {
     onCancelProps();
     setValue(viewValue);
-    setVisible(false);
   }
 
   function onOk() {
     onOkProps(value);
     setViewValue(value);
-    setVisible(false);
+  }
+  function onVisibleChange(v) {
+    onVisibleChangeProps(v);
+    setVisible(v);
   }
   function onChange(v, index) {
     onPropsChange(v, index);
     setValue(v);
   }
   return (
-    <div className={prefixCls}>
-      <Cell title={children} arrow='right' onClick={() => setVisible(true)}>
-        {viewValue.join(',')}
-      </Cell>
-      <Popup
+    <CellPopup
+      cellTitle={cellTitle || children}
+      cellContent={cellContent || viewValue.join(',')}
+      popupTitle={title || popupTitle}
+      className={prefixCls}
+      onOk={onOk}
+      onCancel={onCancel}
+      onVisibleChange={onVisibleChange}
+    >
+      <PickerPanel
+        {...other}
         visible={visible}
-        onClose={() => setVisible(false)}
-        position='bottom'
-        closable={false}
-      >
-        <div className={'sty-row'}>
-          <div className={'sty-row-left'} onClick={onCancel}>
-            {cancelText}
-          </div>
-          <div className={'sty-row-center'}>{title}</div>
-          <div className={'sty-row-left'} onClick={onOk}>
-            {okText}
-          </div>
-        </div>
-        <PickerPanel
-          {...other}
-          visible={visible}
-          value={value}
-          onChange={onChange}
-        />
-      </Popup>
-    </div>
+        value={value}
+        onChange={onChange}
+      />
+    </CellPopup>
   );
 }
 

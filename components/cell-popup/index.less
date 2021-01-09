@@ -1,0 +1,31 @@
+
+@import '../style/default.less';
+
+.sty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+
+  &-left {
+    padding: 0 16px;
+    font-size: 14px;
+    color: #969799;
+  }
+
+  &-right {
+    padding: 0 16px;
+    font-size: 14px;
+    color: #1989fa;
+  }
+
+  &-center {
+    max-width: 50%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: @base-text-color;
+    .sty-ellipsis()
+  }
+}
