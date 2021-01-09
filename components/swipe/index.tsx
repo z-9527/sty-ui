@@ -41,8 +41,7 @@ function Swipe(props: SwipeProps) {
     style
   } = props;
   const count = useMemo(() => React.Children.count(children), [children]); // 轮播图个数
-  // const loop = loopProps && count > 1;
-  const loop = false;
+  const loop = loopProps && count > 1;
   const [touch, boxRef] = useTouch<HTMLDivElement>();
   const height = boxRef.current && boxRef.current.offsetHeight;
   const width = boxRef.current && boxRef.current.offsetWidth;
@@ -197,7 +196,7 @@ Swipe.defaultProps = {
   autoplay: 3000,
   duration: 500,
   defaultIndex: 0,
-  loop: true,
+  loop: false,
   vertical: false,
   showDots: true,
   onChange: () => undefined

@@ -100,12 +100,12 @@ function Picker(props: PickerProps) {
         position='bottom'
         closable={false}
       >
-        <div className={`${prefixCls}-toolbar`}>
-          <div className={`${prefixCls}-toolbar-cancel`} onClick={onCancel}>
+        <div className={'sty-row'}>
+          <div className={'sty-row-left'} onClick={onCancel}>
             {cancelText}
           </div>
-          <div className={`${prefixCls}-toolbar-title ellipsis`}>{title}</div>
-          <div className={`${prefixCls}-toolbar-confirm`} onClick={onOk}>
+          <div className={'sty-row-center'}>{title}</div>
+          <div className={'sty-row-left'} onClick={onOk}>
             {okText}
           </div>
         </div>
