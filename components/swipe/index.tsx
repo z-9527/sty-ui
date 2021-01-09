@@ -41,7 +41,8 @@ function Swipe(props: SwipeProps) {
     style
   } = props;
   const count = useMemo(() => React.Children.count(children), [children]); // 轮播图个数
-  const loop = loopProps && count > 1;
+  // const loop = loopProps && count > 1;
+  const loop = false;
   const [touch, boxRef] = useTouch<HTMLDivElement>();
   const height = boxRef.current && boxRef.current.offsetHeight;
   const width = boxRef.current && boxRef.current.offsetWidth;
@@ -157,7 +158,6 @@ function Swipe(props: SwipeProps) {
         activeIndex + (1 * touch[moveDirection] > 0 ? -1 : 1)
       );
       setActiveIndex(index);
-    } else {
     }
     setMove(-size * index);
     swiping.current = false;
