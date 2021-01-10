@@ -1,21 +1,20 @@
 import React from 'react';
 // import { classnames } from '../_utils/index';
-import { Cell, Popup } from '../index';
+// import { CellPopup } from '../index';
+import DatePanel from './panels';
+import generateConfig from './generate';
+import { DatePickerProps } from './interface';
 import './index.less';
 
-export interface DatePickerProps {
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-function DatePicker(props: DatePickerProps) {
+function DatePicker<DateType>(props: DatePickerProps<DateType>) {
   // const { className, style } = props;
-  return <div></div>;
+  return <DatePanel generateConfig={generateConfig} />;
+  // return (
+  //   <CellPopup className={className} style={style}>
+  //     <DatePanel />
+  //   </CellPopup>
+  // );
 }
 
-DatePicker.defaultProps = {
-  ripple: true,
-  type: 'default',
-  onClick: () => undefined
-};
+DatePicker.defaultProps = {};
 export default DatePicker;

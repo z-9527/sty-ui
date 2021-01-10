@@ -1,0 +1,53 @@
+@dataPanelPrefixCls: sty-date-panel;
+
+
+
+.@{dataPanelPrefixCls}-header {
+  display: flex;
+  padding: 0 8px;
+  color: rgba(0, 0, 0, .85);
+  border-bottom: 1px solid #f0f0f0;
+
+  button {
+    padding: 0;
+    color: rgba(0, 0, 0, .25);
+    line-height: 40px;
+    border: 0;
+    background: none;
+    outline: none;
+    cursor: pointer;
+    transition: color .3s;
+    min-width: 1.6em;
+    font-size: 14px;
+  }
+
+  &-view {
+    flex: auto;
+    text-align: center;
+    font-weight: 500;
+    line-height: 40px;
+  }
+}
+
+.@{dataPanelPrefixCls}-body {
+
+  .@{dataPanelPrefixCls}-cell {
+    color: #aaa;
+
+    &-in-view{
+      color: #333;
+    }
+
+    &-selected {
+      background-color: red;
+
+    }
+  }
+
+
+  &-content {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+}

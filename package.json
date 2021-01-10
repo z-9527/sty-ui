@@ -60,6 +60,7 @@
   "dependencies": {
     "@types/react-router-dom": "^5.1.6",
     "@vant/touch-emulator": "^1.2.0",
+    "dayjs": "^1.10.3",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-config": "^5.1.1",
