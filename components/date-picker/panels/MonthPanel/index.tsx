@@ -10,6 +10,7 @@ export type MonthPanelProps<DateType> = PanelSharedProps<DateType>;
 
 function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
   const {
+    prefixCls,
     generateConfig,
     value,
     viewDate,
@@ -18,9 +19,11 @@ function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
   } = props;
   const baseMonth = generateConfig.setMonth(viewDate, 0);
   const getCellClassName = useCellClassName({
+    cellPrefixCls: `${prefixCls}-cell`,
     value,
     isSameCell: (current, target) =>
-      isSameMonth(generateConfig, current, target)
+      isSameMonth(generateConfig, current, target),
+    isInView: () => true
   });
   const onYearChange = (diff: number) => {
     const newDate = generateConfig.addYear(viewDate, diff);

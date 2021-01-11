@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import Header from '../Header';
 import PanelBody from '../PanelBody';
@@ -16,16 +15,20 @@ function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
   const cellPrefixCls = `${prefixCls}-cell`;
 
   const yearNumber = generateConfig.getYear(viewDate);
-  const startYear = Math.floor(yearNumber / DECADE_DISTANCE_COUNT) * DECADE_DISTANCE_COUNT;
+  const startYear =
+    Math.floor(yearNumber / DECADE_DISTANCE_COUNT) * DECADE_DISTANCE_COUNT;
   const endYear = startYear + DECADE_DISTANCE_COUNT - 1;
-  const decadeYearNumber = Math.floor(yearNumber / DECADE_UNIT_DIFF) * DECADE_UNIT_DIFF;
+  const decadeYearNumber =
+    Math.floor(yearNumber / DECADE_UNIT_DIFF) * DECADE_UNIT_DIFF;
 
   const baseDecadeYear = generateConfig.setYear(
     viewDate,
     startYear -
-    Math.ceil(
-      (DECADE_COL_COUNT * DECADE_ROW_COUNT * DECADE_UNIT_DIFF - DECADE_DISTANCE_COUNT) / 2
-    )
+      Math.ceil(
+        (DECADE_COL_COUNT * DECADE_ROW_COUNT * DECADE_UNIT_DIFF -
+          DECADE_DISTANCE_COUNT) /
+          2
+      )
   );
 
   const getCellClassName = (date: DateType) => {
@@ -45,7 +48,7 @@ function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
       diff * DECADE_DISTANCE_COUNT
     );
     onViewDateChange(newDate);
-  };
+  }
   return (
     <div>
       <Header
@@ -62,8 +65,9 @@ function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
         baseDate={baseDecadeYear}
         getCellText={date => {
           const startDecadeNumber = generateConfig.getYear(date);
-          return `${startDecadeNumber}-${startDecadeNumber + DECADE_UNIT_DIFF_DES
-            }`;
+          return `${startDecadeNumber}-${
+            startDecadeNumber + DECADE_UNIT_DIFF_DES
+          }`;
         }}
         getCellDate={(date, offset) =>
           generateConfig.addYear(date, offset * DECADE_UNIT_DIFF)
