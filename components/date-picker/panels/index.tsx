@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import MonthPanel from './MonthPanel';
 import DecadePanel from './DecadePanel';
 import YearPanel from './YearPanel';
+import DatePanel from './DatePanel';
 import { DatePanelProps } from '../interface';
 
-function DatePanel<DateType>(props: DatePanelProps<DateType>) {
+function DatePanelIndex<DateType>(props: DatePanelProps<DateType>) {
   const { defaultValue, generateConfig } = props;
   const [value, setValue] = useState<DateType>(defaultValue);
   const [viewDate, setViewDate] = useState<DateType>(generateConfig.getNow());
@@ -28,21 +29,16 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
 
   return (
     <div>
-      <MonthPanel
-        {...props}
-        viewDate={viewDate}
-        value={value}
-        onSelect={onSelect}
-        onViewDateChange={setViewDate}
-      />
+      <MonthPanel {...a} />
       <DecadePanel {...a} />
       <YearPanel {...a} />
+      <DatePanel {...a} />
     </div>
   );
 }
 
-DatePanel.defaultProps = {
+DatePanelIndex.defaultProps = {
   prefixCls: 'sty-date-panel'
 };
 
-export default DatePanel;
+export default DatePanelIndex;

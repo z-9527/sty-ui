@@ -7,6 +7,8 @@ import useCellClassName from '../../hooks/useCellClassName';
 import { isSameMonth } from '../../_utils/dateUtils';
 
 export type MonthPanelProps<DateType> = PanelSharedProps<DateType>;
+export const MONTH_COL_COUNT = 3;
+export const MONTH_ROW_COUNT = 4;
 
 function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
   const {
@@ -40,7 +42,7 @@ function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
         onSuperPrev={() => onYearChange(-1)}
       >
         <div onClick={onYearClick}>
-          {generateConfig.local.format({
+          {generateConfig.locale.format({
             date: viewDate,
             format: locale.yearFormat
           })}
@@ -48,12 +50,12 @@ function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
       </Header>
       <PanelBody<DateType>
         {...props}
-        rowNum={4}
-        colNum={3}
+        rowNum={MONTH_ROW_COUNT}
+        colNum={MONTH_COL_COUNT}
         baseDate={baseMonth}
         getCellDate={generateConfig.addMonth}
         getCellText={date =>
-          generateConfig.local.getShortMonths()[generateConfig.getMonth(date)]
+          generateConfig.locale.getShortMonths()[generateConfig.getMonth(date)]
         }
         getCellClassName={getCellClassName}
       />
