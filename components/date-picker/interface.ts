@@ -1,6 +1,7 @@
 import React from 'react';
 import { CellPopupProps } from '../cell-popup';
 import { GenerateConfig } from './generate';
+import { Dayjs } from 'dayjs';
 
 export type PanelMode = 'date' | 'month' | 'year' | 'decade';
 export type PickerMode = Exclude<PanelMode, 'decade'>;
@@ -21,19 +22,19 @@ export type PanelSharedProps<DateType> = {
   onPanelChange: (mode: PanelMode, viewValue: DateType) => void; // 面板模式改变的回调
 };
 
-export interface DatePanelProps<DateType> {
+export interface DatePanelProps {
   picker?: PickerMode;
   prefixCls?: string;
-  generateConfig: GenerateConfig<DateType>;
-  value?: DateType;
-  defaultValue?: DateType;
-
-  onPanelChange: (mode: PanelMode, viewValue: DateType) => void; // 面板模式改变的回调
+  generateConfig?: GenerateConfig<Dayjs>;
+  value?: Dayjs;
+  defaultValue?: Dayjs;
+  onSelect?: (date: Dayjs) => unknown; // 选中日期的回调
+  onPanelChange?: (mode: PanelMode, viewValue: Dayjs) => void; // 面板模式改变的回调
 
   className?: string;
   style?: React.CSSProperties;
 }
 
-export interface DatePickerProps<DateType>
-  extends DatePanelProps<DateType>,
+export interface DatePickerProps
+  extends DatePanelProps,
     Omit<CellPopupProps, 'onOk'> {}

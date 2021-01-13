@@ -4,35 +4,48 @@ import DecadePanel from './DecadePanel';
 import YearPanel from './YearPanel';
 import DatePanel from './DatePanel';
 import { DatePanelProps, PanelMode } from '../interface';
+import { Dayjs } from 'dayjs';
 
-function DatePanelIndex<DateType>(props: DatePanelProps<DateType>) {
+function DatePanelIndex(props: DatePanelProps) {
   const {
+    value: valueProps,
     defaultValue,
     generateConfig,
     picker,
-    onPanelChange,
+    onSelect: onSelectProps,
+    onPanelChange: onPanelChangeProps,
     className,
     style
   } = props;
-  const [value, setValue] = useState<DateType>(defaultValue);
-  const [viewDate, setViewDate] = useState<DateType>(generateConfig.getNow());
+  const [value, setValue] = useState<Dayjs>(defaultValue);
+  const [viewDate, setViewDate] = useState<Dayjs>(generateConfig.getNow());
   const [mergedMode, setMergedMode] = useState<PanelMode>(picker);
 
   useEffect(() => {
     setViewDate(value || generateConfig.getNow());
   }, [value]);
+
+  useEffect(() => {
+    setValue(valueProps);
+  }, [valueProps]);
+
   function onSelect(v) {
-    setValue(v);
+    if (valueProps !== undefined) {
+      onSelectProps(v);
+    } else {
+      setValue(v);
+    }
   }
 
-  const onInternalPanelChange = (newMode: PanelMode, viewValue: DateType) => {
+  const onInternalPanelChange = (newMode: PanelMode, viewValue: Dayjs) => {
     setMergedMode(newMode);
 
-    onPanelChange(newMode, viewValue);
+    onPanelChangeProps(newMode, viewValue);
   };
 
   const pickerProps = {
     ...props,
+    generateConfig,
     picker,
     viewDate,
     value,
@@ -45,19 +58,19 @@ function DatePanelIndex<DateType>(props: DatePanelProps<DateType>) {
 
   switch (mergedMode) {
     case 'month': {
-      panelNode = <MonthPanel<DateType> {...pickerProps} />;
+      panelNode = <MonthPanel<Dayjs> {...pickerProps} />;
       break;
     }
     case 'year': {
-      panelNode = <YearPanel<DateType> {...pickerProps} />;
+      panelNode = <YearPanel<Dayjs> {...pickerProps} />;
       break;
     }
     case 'decade': {
-      panelNode = <DecadePanel<DateType> {...pickerProps} />;
+      panelNode = <DecadePanel<Dayjs> {...pickerProps} />;
       break;
     }
     default:
-      panelNode = <DatePanel<DateType> {...pickerProps} />;
+      panelNode = <DatePanel<Dayjs> {...pickerProps} />;
   }
 
   return (
@@ -70,6 +83,7 @@ function DatePanelIndex<DateType>(props: DatePanelProps<DateType>) {
 DatePanelIndex.defaultProps = {
   prefixCls: 'sty-date-panel',
   picker: 'date',
+  onSelect: () => undefined,
   onPanelChange: () => undefined
 };
 
