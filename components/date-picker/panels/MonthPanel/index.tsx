@@ -16,8 +16,10 @@ function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
     generateConfig,
     value,
     viewDate,
+    picker,
     onViewDateChange,
-    onPanelChange
+    onPanelChange,
+    onSelect
   } = props;
   const baseMonth = generateConfig.setMonth(viewDate, 0);
   const getCellClassName = useCellClassName({
@@ -58,6 +60,10 @@ function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
           generateConfig.locale.getShortMonths()[generateConfig.getMonth(date)]
         }
         getCellClassName={getCellClassName}
+        onSelect={date => {
+          onSelect(date);
+          picker !== 'month' && onPanelChange('date', date);
+        }}
       />
     </div>
   );

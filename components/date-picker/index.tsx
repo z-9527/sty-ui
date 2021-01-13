@@ -8,7 +8,13 @@ import './index.less';
 
 function DatePicker<DateType>(props: DatePickerProps<DateType>) {
   // const { className, style } = props;
-  return <DatePanel generateConfig={generateConfig} />;
+  return (
+    <DatePanel
+      generateConfig={generateConfig}
+      picker='date'
+      onPanelChange={console.log}
+    />
+  );
   // return (
   //   <CellPopup className={className} style={style}>
   //     <DatePanel />

@@ -16,7 +16,10 @@ function YearPanel<DateType>(props: YearPanelProps<DateType>) {
     generateConfig,
     viewDate,
     value,
-    onViewDateChange
+    picker,
+    onViewDateChange,
+    onPanelChange,
+    onSelect
   } = props;
 
   const yearNumber = generateConfig.getYear(viewDate);
@@ -46,7 +49,9 @@ function YearPanel<DateType>(props: YearPanelProps<DateType>) {
     onViewDateChange(newDate);
   };
 
-  function onDecadeClick() {}
+  function onDecadeClick() {
+    onPanelChange('decade', viewDate);
+  }
   return (
     <div>
       <Header
@@ -66,6 +71,10 @@ function YearPanel<DateType>(props: YearPanelProps<DateType>) {
         getCellDate={generateConfig.addYear}
         getCellText={generateConfig.getYear}
         getCellClassName={getCellClassName}
+        onSelect={date => {
+          onSelect(date);
+          picker !== 'year' && onPanelChange('month', date);
+        }}
       />
     </div>
   );

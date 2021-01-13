@@ -8,6 +8,7 @@ import {
   isSameMonth,
   getWeekStartDate
 } from '../../_utils/dateUtils';
+import locale from '../../generate/locale';
 
 export type DatePanelProps<DateType> = PanelSharedProps<DateType>;
 export const DATE_ROW_COUNT = 6;
@@ -19,7 +20,8 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
     prefixCls,
     value,
     viewDate,
-    onViewDateChange
+    onViewDateChange,
+    onPanelChange
   } = props;
   const baseDate = getWeekStartDate(undefined, generateConfig, viewDate);
 
@@ -48,6 +50,12 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
     const newDate = generateConfig.addMonth(viewDate, diff);
     onViewDateChange(newDate);
   };
+  function onYearClick() {
+    onPanelChange('year', viewDate);
+  }
+  function onMonthClick() {
+    onPanelChange('month', viewDate);
+  }
   return (
     <div>
       <Header
@@ -58,10 +66,18 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
         onNext={() => onMonthChange(1)}
       >
         <div>
-          {generateConfig.locale.format({
-            date: viewDate,
-            format: 'YYYY年 M月'
-          })}
+          <span onClick={onYearClick} tabIndex={-1}>
+            {generateConfig.locale.format({
+              date: viewDate,
+              format: locale.yearFormat
+            })}
+          </span>
+          <span onClick={onMonthClick} tabIndex={-1}>
+            {generateConfig.locale.format({
+              date: viewDate,
+              format: locale.monthFormat
+            })}
+          </span>
         </div>
       </Header>
       <PanelBody

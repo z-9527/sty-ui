@@ -11,7 +11,14 @@ export const DECADE_ROW_COUNT = 4;
 export const DECADE_UNIT_DIFF_DES = DECADE_UNIT_DIFF - 1;
 
 function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
-  const { generateConfig, viewDate, prefixCls, onViewDateChange } = props;
+  const {
+    generateConfig,
+    viewDate,
+    prefixCls,
+    onViewDateChange,
+    onPanelChange,
+    onSelect
+  } = props;
   const cellPrefixCls = `${prefixCls}-cell`;
 
   const yearNumber = generateConfig.getYear(viewDate);
@@ -73,6 +80,10 @@ function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
           generateConfig.addYear(date, offset * DECADE_UNIT_DIFF)
         }
         getCellClassName={getCellClassName}
+        onSelect={date => {
+          onSelect(date);
+          onPanelChange('year', date);
+        }}
       />
     </div>
   );
