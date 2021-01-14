@@ -17,6 +17,7 @@ export type PanelSharedProps<DateType> = {
   value: DateType;
   viewDate: DateType;
   picker: PickerMode;
+  disabledDate?: (date: DateType) => boolean;
   onSelect: (date: DateType) => unknown; // 选中日期的回调
   onViewDateChange: (value: DateType) => unknown; // 中间title日期变化的回调
   onPanelChange: (mode: PanelMode, viewValue: DateType) => void; // 面板模式改变的回调
@@ -28,6 +29,7 @@ export interface DatePanelProps {
   generateConfig?: GenerateConfig<Dayjs>;
   value?: Dayjs;
   defaultValue?: Dayjs;
+  disabledDate?: (date: Dayjs) => boolean;
   onSelect?: (date: Dayjs) => unknown; // 选中日期的回调
   onPanelChange?: (mode: PanelMode, viewValue: Dayjs) => void; // 面板模式改变的回调
 

@@ -15,6 +15,7 @@ export type GenerateConfig<DateType = Dayjs> = {
   getMonth: (value: DateType) => number;
   getDate: (value: DateType) => number;
   getWeekDay: (value: DateType) => number;
+  getEndDate: (value: DateType) => DateType;
   // set
   addYear: (value: DateType, diff: number) => DateType;
   setYear: (value: DateType, year: number) => DateType;
@@ -44,6 +45,7 @@ const generateConfig: GenerateConfig<Dayjs> = {
     const clone = date.locale('en');
     return clone.day() + clone.localeData().firstDayOfWeek();
   },
+  getEndDate: date => date.endOf('month'),
   // set
   addYear: (date, diff) => date.add(diff, 'year'),
   setYear: (date, year) => date.year(year),

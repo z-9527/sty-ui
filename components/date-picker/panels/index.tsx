@@ -26,7 +26,7 @@ function DatePanelIndex(props: DatePanelProps) {
   }, [value]);
 
   useEffect(() => {
-    setValue(valueProps);
+    setValue(valueProps || defaultValue);
   }, [valueProps]);
 
   function onSelect(v) {
@@ -49,6 +49,7 @@ function DatePanelIndex(props: DatePanelProps) {
     picker,
     viewDate,
     value,
+    mode: mergedMode,
     onSelect,
     onViewDateChange: setViewDate,
     onPanelChange: onInternalPanelChange

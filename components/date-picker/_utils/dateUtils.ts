@@ -1,4 +1,6 @@
 import { GenerateConfig } from '../generate';
+import { PanelMode } from '../interface';
+import { DECADE_UNIT_DIFF } from '../panels/DecadePanel';
 
 export function isNullEqual<T>(value1: T, value2: T): boolean | undefined {
   if (!value1 && !value2) {
@@ -78,4 +80,88 @@ export function getWeekStartDate<DateType>(
   }
 
   return alignStartDate;
+}
+
+export function getCellDateDisabled<DateType>({
+  cellDate,
+  mode,
+  disabledDate,
+  generateConfig
+}: {
+  cellDate: DateType;
+  mode: PanelMode;
+  generateConfig: GenerateConfig<DateType>;
+  disabledDate?: (date: DateType) => boolean;
+}): boolean {
+  if (!disabledDate) return false;
+  const getDisabledFromRange = (
+    currentMode: 'date' | 'month' | 'year',
+    start: number,
+    end: number
+  ) => {
+    let current = start;
+    while (current <= end) {
+      let date: DateType;
+      switch (currentMode) {
+        case 'date': {
+          date = generateConfig.setDate(cellDate, current);
+          if (!disabledDate(date)) {
+            return false;
+          }
+          break;
+        }
+        case 'month': {
+          date = generateConfig.setMonth(cellDate, current);
+          if (
+            !getCellDateDisabled({
+              cellDate: date,
+              mode: 'month',
+              generateConfig,
+              disabledDate
+            })
+          ) {
+            return false;
+          }
+          break;
+        }
+        case 'year': {
+          date = generateConfig.setYear(cellDate, current);
+          if (
+            !getCellDateDisabled({
+              cellDate: date,
+              mode: 'year',
+              generateConfig,
+              disabledDate
+            })
+          ) {
+            return false;
+          }
+          break;
+        }
+      }
+      current += 1;
+    }
+    return true;
+  };
+  switch (mode) {
+    case 'date': {
+      return disabledDate(cellDate);
+    }
+    case 'month': {
+      const startDate = 1;
+      const endDate = generateConfig.getDate(
+        generateConfig.getEndDate(cellDate)
+      );
+      return getDisabledFromRange('date', startDate, endDate);
+    }
+    case 'year': {
+      return getDisabledFromRange('month', 0, 11);
+    }
+    case 'decade': {
+      const year = generateConfig.getYear(cellDate);
+      const startYear = Math.floor(year / DECADE_UNIT_DIFF) * DECADE_UNIT_DIFF;
+      const endYear = startYear + DECADE_UNIT_DIFF - 1;
+      return getDisabledFromRange('year', startYear, endYear);
+    }
+  }
 }

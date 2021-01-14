@@ -17,6 +17,9 @@ function DatePicker(props: DatePickerProps) {
       generateConfig={generateConfig}
       picker='date'
       onPanelChange={console.log}
+      disabledDate={date => {
+        return date <= dayjs().endOf('day');
+      }}
     />
   );
   // return (
