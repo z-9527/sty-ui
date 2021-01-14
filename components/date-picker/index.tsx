@@ -1,35 +1,11 @@
-import React, { useState } from 'react';
-// import { classnames } from '../_utils/index';
-// import { CellPopup } from '../index';
-import DatePanel from './panels';
-import generateConfig from './generate';
-import { DatePickerProps } from './interface';
-import dayjs from 'dayjs';
-import './index.less';
+import DatePicker from './DatePicker';
+import DatePanelIndex from './panels';
 
-function DatePicker(props: DatePickerProps) {
-  const { generateConfig, className, style } = props;
-  const [v, setV] = useState(dayjs());
-  return (
-    <DatePanel
-      value={v}
-      onSelect={setV}
-      generateConfig={generateConfig}
-      picker='date'
-      onPanelChange={console.log}
-      disabledDate={date => {
-        return date <= dayjs().endOf('day');
-      }}
-    />
-  );
-  // return (
-  //   <CellPopup className={className} style={style}>
-  //     <DatePanel />
-  //   </CellPopup>
-  // );
-}
-
-DatePicker.defaultProps = {
-  generateConfig
+type MergedDatePickerType = typeof DatePicker & {
+  DatePanel: typeof DatePanelIndex;
 };
-export default DatePicker;
+
+const MergedDatePicker = DatePicker as MergedDatePickerType;
+MergedDatePicker.DatePanel = DatePanelIndex;
+
+export default MergedDatePicker;

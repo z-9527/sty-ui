@@ -4,6 +4,7 @@ import DecadePanel from './DecadePanel';
 import YearPanel from './YearPanel';
 import DatePanel from './DatePanel';
 import { DatePanelProps, PanelMode } from '../interface';
+import generateConfig from '../generate';
 import { Dayjs } from 'dayjs';
 
 function DatePanelIndex(props: DatePanelProps) {
@@ -84,6 +85,7 @@ function DatePanelIndex(props: DatePanelProps) {
 DatePanelIndex.defaultProps = {
   prefixCls: 'sty-date-panel',
   picker: 'date',
+  generateConfig,
   onSelect: () => undefined,
   onPanelChange: () => undefined
 };
