@@ -5,7 +5,7 @@ import { Dayjs } from 'dayjs';
 
 export type PanelMode = 'date' | 'month' | 'year' | 'decade';
 export type PickerMode = Exclude<PanelMode, 'decade'>;
-export type PickerValue<DateType> = DateType | [DateType, DateType];
+export type PickerValue<DateType> = DateType | [DateType?, DateType?];
 
 export type PanelSharedProps<DateType> = {
   prefixCls?: string;

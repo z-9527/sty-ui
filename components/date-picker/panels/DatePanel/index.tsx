@@ -81,7 +81,7 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
           </span>
         </div>
       </Header>
-      <PanelBody
+      <PanelBody<DateType>
         {...props}
         rowNum={DATE_ROW_COUNT}
         colNum={WEEK_DAY_COUNT}

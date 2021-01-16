@@ -39,7 +39,7 @@ function DatePanelIndex(props: DatePanelProps) {
     if (picker === mergedMode) {
       let newValue: PickerValue<Dayjs>;
       if (isRange) {
-        newValue = value?.slice?.() || [];
+        newValue = value || [];
         const index = v > newValue[0] ? 1 : 0;
         newValue[index] = v;
         if (

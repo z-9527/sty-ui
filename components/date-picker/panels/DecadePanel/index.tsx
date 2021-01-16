@@ -65,7 +65,7 @@ function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
       >
         {startYear} - {endYear}
       </Header>
-      <PanelBody
+      <PanelBody<DateType>
         {...props}
         rowNum={DECADE_ROW_COUNT}
         colNum={DECADE_COL_COUNT}

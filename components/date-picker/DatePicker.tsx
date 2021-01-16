@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 // import { classnames } from '../_utils/index';
 // import { CellPopup } from '../index';
 import DatePanel from './panels';
-import { DatePickerProps } from './interface';
-import dayjs from 'dayjs';
+import { DatePickerProps, PickerValue } from './interface';
+import dayjs, { Dayjs } from 'dayjs';
 import './index.less';
-
 function DatePicker(props: DatePickerProps) {
   // const { className, style } = props;
-  const [v, setV] = useState([dayjs('2019-01-02')]);
+  const [v, setV] = useState<PickerValue<Dayjs>>([dayjs('2019-01-02')]);
   // const [v, setV] = useState(dayjs('2019-01-02'));
   return (
     <DatePanel

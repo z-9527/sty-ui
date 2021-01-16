@@ -64,7 +64,7 @@ function YearPanel<DateType>(props: YearPanelProps<DateType>) {
           {startYear}-{endYear}
         </div>
       </Header>
-      <PanelBody
+      <PanelBody<DateType>
         {...props}
         colNum={YEAR_COL_COUNT}
         rowNum={YEAR_ROW_COUNT}
