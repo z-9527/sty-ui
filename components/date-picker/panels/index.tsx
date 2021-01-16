@@ -31,10 +31,13 @@ function DatePanelIndex(props: DatePanelProps) {
   }, [valueProps]);
 
   function onSelect(v) {
-    if (valueProps !== undefined) {
-      onSelectProps(v);
-    } else {
-      setValue(v);
+    setViewDate(v);
+    if (picker === mergedMode) {
+      if (valueProps !== undefined) {
+        onSelectProps(v);
+      } else {
+        setValue(v);
+      }
     }
   }
 
