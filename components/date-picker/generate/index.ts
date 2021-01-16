@@ -16,6 +16,9 @@ export type GenerateConfig<DateType = Dayjs> = {
   getDate: (value: DateType) => number;
   getWeekDay: (value: DateType) => number;
   getEndDate: (value: DateType) => DateType;
+  getSecond: (value: DateType) => number;
+  getMinute: (value: DateType) => number;
+  getHour: (value: DateType) => number;
   // set
   addYear: (value: DateType, diff: number) => DateType;
   setYear: (value: DateType, year: number) => DateType;
@@ -23,6 +26,9 @@ export type GenerateConfig<DateType = Dayjs> = {
   addMonth: (value: DateType, diff: number) => DateType;
   addDate: (value: DateType, diff: number) => DateType;
   setDate: (value: DateType, date: number) => DateType;
+  // Compare
+  isAfter: (date1: DateType, date2: DateType) => boolean;
+
   locale: {
     format: (options: {
       locale?: string;
@@ -46,6 +52,9 @@ const generateConfig: GenerateConfig<Dayjs> = {
     return clone.day() + clone.localeData().firstDayOfWeek();
   },
   getEndDate: date => date.endOf('month'),
+  getHour: date => date.hour(),
+  getMinute: date => date.minute(),
+  getSecond: date => date.second(),
   // set
   addYear: (date, diff) => date.add(diff, 'year'),
   setYear: (date, year) => date.year(year),
@@ -54,6 +63,7 @@ const generateConfig: GenerateConfig<Dayjs> = {
   addDate: (date, diff) => date.add(diff, 'day'),
   setDate: (date, num) => date.date(num),
   // Compare
+  isAfter: (date1, date2) => date1.isAfter(date2),
 
   // locale
   locale: {

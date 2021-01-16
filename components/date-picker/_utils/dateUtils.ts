@@ -2,6 +2,17 @@ import { GenerateConfig } from '../generate';
 import { PanelMode } from '../interface';
 import { DECADE_UNIT_DIFF } from '../panels/DecadePanel';
 
+export function isEqual<DateType>(
+  generateConfig: GenerateConfig<DateType>,
+  value1: DateType,
+  value2: DateType
+) {
+  return (
+    isSameDate(generateConfig, value1, value2) &&
+    isSameTime(generateConfig, value1, value2)
+  );
+}
+
 export function isNullEqual<T>(value1: T, value2: T): boolean | undefined {
   if (!value1 && !value2) {
     return true;
@@ -57,6 +68,24 @@ export function isSameDate<DateType>(
     generateConfig.getDate(date1!) === generateConfig.getDate(date2!)
   );
 }
+
+export function isSameTime<DateType>(
+  generateConfig: GenerateConfig<DateType>,
+  time1: DateType,
+  time2: DateType
+) {
+  const equal = isNullEqual(time1, time2);
+  if (typeof equal === 'boolean') {
+    return equal;
+  }
+
+  return (
+    generateConfig.getHour(time1!) === generateConfig.getHour(time2!) &&
+    generateConfig.getMinute(time1!) === generateConfig.getMinute(time2!) &&
+    generateConfig.getSecond(time1!) === generateConfig.getSecond(time2!)
+  );
+}
+
 export function getWeekStartDate<DateType>(
   locale: string,
   generateConfig: GenerateConfig<DateType>,
@@ -164,4 +193,22 @@ export function getCellDateDisabled<DateType>({
       return getDisabledFromRange('year', startYear, endYear);
     }
   }
+}
+
+export function isInRange<DateType>(
+  generateConfig: GenerateConfig<DateType>,
+  startDate: DateType,
+  endDate: DateType,
+  current: DateType
+) {
+  if (!startDate || !endDate || !current) {
+    return false;
+  }
+
+  return (
+    !isSameDate(generateConfig, startDate, current) &&
+    !isSameDate(generateConfig, endDate, current) &&
+    generateConfig.isAfter(current, startDate) &&
+    generateConfig.isAfter(endDate, current)
+  );
 }

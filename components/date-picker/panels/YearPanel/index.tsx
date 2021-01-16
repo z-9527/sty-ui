@@ -38,6 +38,7 @@ function YearPanel<DateType>(props: YearPanelProps<DateType>) {
   };
   const getCellClassName = useCellClassName({
     cellPrefixCls: `${prefixCls}-cell`,
+    generateConfig,
     value,
     isSameCell: (current, target) =>
       isSameYear(generateConfig, current, target),

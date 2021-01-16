@@ -24,6 +24,7 @@ function MonthPanel<DateType>(props: MonthPanelProps<DateType>) {
   const baseMonth = generateConfig.setMonth(viewDate, 0);
   const getCellClassName = useCellClassName({
     cellPrefixCls: `${prefixCls}-cell`,
+    generateConfig,
     value,
     isSameCell: (current, target) =>
       isSameMonth(generateConfig, current, target),

@@ -35,6 +35,7 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
   }
   const getCellClassName = useCellClassName({
     cellPrefixCls: `${prefixCls}-cell`,
+    generateConfig,
     value,
     today: generateConfig.getNow(),
     isSameCell: (current, target) =>

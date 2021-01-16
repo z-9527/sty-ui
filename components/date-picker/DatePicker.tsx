@@ -7,17 +7,22 @@ import dayjs from 'dayjs';
 import './index.less';
 
 function DatePicker(props: DatePickerProps) {
-  const { className, style } = props;
-  const [v, setV] = useState(dayjs());
+  // const { className, style } = props;
+  const [v, setV] = useState([dayjs('2019-01-02')]);
+  // const [v, setV] = useState(dayjs('2019-01-02'));
   return (
     <DatePanel
       value={v}
-      onSelect={setV}
+      onChange={v => {
+        console.log('v: ', v);
+        setV(v);
+      }}
+      isRange
       picker='date'
       onPanelChange={console.log}
-      disabledDate={date => {
-        return date <= dayjs().endOf('day');
-      }}
+      // disabledDate={date => {
+      //   return date <= dayjs().endOf('day');
+      // }}
     />
   );
   // return (
