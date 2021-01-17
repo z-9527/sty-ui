@@ -40,11 +40,9 @@
 .@{dataPanelPrefixCls}-body {
   padding: 8px 12px;
 
-  th,
-  tr {
-    height: 30px;
+  th,td{
     text-align: center;
-    line-height: 30px;
+    vertical-align: middle;
   }
 
   .@{dataPanelPrefixCls}-cell {
@@ -80,9 +78,8 @@
       color: #333;
     }
 
-    &-in-range:not(.@{dataPanelPrefixCls}-cell-selected) {
+    &-in-range:not(.@{dataPanelPrefixCls}-cell-selected)::before {
       background-color: @range-background-color;
-      background-clip: content-box;
     }
 
     &-range-start {
@@ -115,7 +112,7 @@
 
 
   &-content {
-    height: 250px;
+    height: 246px;
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
@@ -124,6 +121,9 @@
 
 
 .@{dataPanelPrefixCls}-date-panel {
+  th{
+    height: 30px;
+  }
   .@{dataPanelPrefixCls}-cell {
     .@{dataPanelPrefixCls}-cell-inner {
       min-width: 30px;
@@ -132,11 +132,8 @@
 
     &-in-range:last-child {
       &::before {
-        background-color: @range-background-color;
         right: 50%;
       }
-
-      background: none;
 
       .@{dataPanelPrefixCls}-cell-inner {
         background-color: @range-background-color;
@@ -145,11 +142,8 @@
 
     &-in-range:first-child {
       &::before {
-        background-color: @range-background-color;
         left: 50%;
       }
-
-      background: none;
 
       .@{dataPanelPrefixCls}-cell-inner {
         background-color: @range-background-color;
@@ -188,8 +182,5 @@
   &.@{dataPanelPrefixCls}-year-footer>.date {
     width: 43px;
   }
-
-
-
 
 }

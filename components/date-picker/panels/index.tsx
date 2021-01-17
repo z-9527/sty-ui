@@ -118,14 +118,14 @@ function DatePanelIndex(props: DatePanelProps) {
           `${prefixCls}-${picker}-footer`
         )}
       >
-        <div className='date'>
+        <div className='date' onClick={() => setViewDate(value?.[0])}>
           {formatDate({
             date: value?.[0],
             format: formatString
           })}
         </div>
         <div className='split'>~</div>
-        <div className='date'>
+        <div className='date' onClick={() => setViewDate(value?.[1])}>
           {formatDate({
             date: value?.[1],
             format: formatString
