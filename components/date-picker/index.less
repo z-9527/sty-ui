@@ -1,5 +1,8 @@
+@import '../style/default.less';
+
 @dataPanelPrefixCls: sty-date-panel;
 
+@range-background-color: #e6f5f4;
 
 
 .@{dataPanelPrefixCls}-header {
@@ -18,7 +21,8 @@
     cursor: pointer;
     transition: color .3s;
     min-width: 1.6em;
-    font-size: 14px;
+    font-size: 28px;
+    opacity: .8;
   }
 
   &-view {
@@ -30,26 +34,77 @@
 }
 
 .@{dataPanelPrefixCls}-body {
+  padding: 8px 12px;
+
+  th,
+  tr {
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+  }
 
   .@{dataPanelPrefixCls}-cell {
+    position: relative;
     color: #aaa;
+    padding: 3px 0;
 
-    &-in-view{
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      left: 0;
+      height: 30px;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+
+
+    .@{dataPanelPrefixCls}-cell-inner {
+      position: relative;
+      display: inline-block;
+      min-width: 80%;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-radius: 2px;
+      z-index: 2;
+    }
+
+    &-in-view {
       color: #333;
     }
 
-    &-in-range{
-      background: rgba(0, 0, 255, 0.05);
+    &-in-range:not(.@{dataPanelPrefixCls}-cell-selected) {
+      background-color: @range-background-color;
+      background-clip: content-box;
     }
 
-    &-selected {
-      background-color: red;
-    }
-    &-today{
-      color: orange;
+    &-range-start {
+      &:not(.@{dataPanelPrefixCls}-cell-range-start-single)::before {
+        background-color: @range-background-color;
+        left: 50%;
+      }
     }
 
-    &-disabled{
+    &-range-end {
+      &::before {
+        background-color: @range-background-color;
+        right: 50%;
+      }
+    }
+
+    &-selected .@{dataPanelPrefixCls}-cell-inner {
+      background-color: @base-color;
+      color: #fff;
+    }
+
+    &-today {
+      color: @base-color;
+    }
+
+    &-disabled {
       opacity: 0.2;
     }
   }
@@ -60,4 +115,41 @@
     table-layout: fixed;
     border-collapse: collapse;
   }
+}
+
+
+.@{dataPanelPrefixCls}-date-panel {
+  .@{dataPanelPrefixCls}-cell {
+    .@{dataPanelPrefixCls}-cell-inner {
+      min-width: 30px;
+      border-radius: 50%;
+    }
+
+    &-in-range:last-child {
+      &::before {
+        background-color: @range-background-color;
+        right: 50%;
+      }
+
+      background: none;
+
+      .@{dataPanelPrefixCls}-cell-inner {
+        background-color: @range-background-color;
+      }
+    }
+
+    &-in-range:first-child {
+      &::before {
+        background-color: @range-background-color;
+        left: 50%;
+      }
+
+      background: none;
+
+      .@{dataPanelPrefixCls}-cell-inner {
+        background-color: @range-background-color;
+      }
+    }
+  }
+
 }

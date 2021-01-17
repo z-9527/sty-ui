@@ -66,7 +66,7 @@ function PanelBody<DateType>(props: PanelBodyProps<DateType>) {
             }
           }}
         >
-          {cellText}
+          <div className={`${cellPrefixCls}-inner`}>{cellText}</div>
         </td>
       );
     }

@@ -54,7 +54,7 @@ function YearPanel<DateType>(props: YearPanelProps<DateType>) {
     onPanelChange('decade', viewDate);
   }
   return (
-    <div>
+    <div className={`${prefixCls}-year-panel`}>
       <Header
         {...props}
         onSuperPrev={() => onDecadeChange(-1)}

@@ -57,7 +57,7 @@ function DecadePanel<DateType>(props: DecadePanelProps<DateType>) {
     onViewDateChange(newDate);
   }
   return (
-    <div>
+    <div className={`${prefixCls}-decade-panel`}>
       <Header
         {...props}
         onSuperNext={() => onDecadesChange(1)}

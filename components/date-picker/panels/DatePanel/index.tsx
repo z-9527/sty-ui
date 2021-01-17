@@ -58,7 +58,7 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
     onPanelChange('month', viewDate);
   }
   return (
-    <div>
+    <div className={`${prefixCls}-date-panel`}>
       <Header
         {...props}
         onSuperPrev={() => onYearChange(-1)}
