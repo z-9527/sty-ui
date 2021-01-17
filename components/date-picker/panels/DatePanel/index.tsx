@@ -73,6 +73,7 @@ function DatePanel<DateType>(props: DatePanelProps<DateType>) {
               format: locale.yearFormat
             })}
           </span>
+          &nbsp;
           <span onClick={onMonthClick} tabIndex={-1}>
             {generateConfig.locale.format({
               date: viewDate,

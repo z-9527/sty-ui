@@ -6,10 +6,12 @@ import DatePanel from './DatePanel';
 import { DatePanelProps, PanelMode, PickerValue } from '../interface';
 import generateConfig from '../generate';
 import { Dayjs } from 'dayjs';
-import { isEqual } from '../_utils/dateUtils';
+import { isEqual, formatDate } from '../_utils/dateUtils';
+import { classnames } from '@/components/_utils';
 
 function DatePanelIndex(props: DatePanelProps) {
   const {
+    prefixCls,
     value: valueProps,
     defaultValue,
     generateConfig,
@@ -18,6 +20,7 @@ function DatePanelIndex(props: DatePanelProps) {
     onSelect: onSelectProps,
     onChange: onChangeProps,
     onPanelChange: onPanelChangeProps,
+    renderExtraFooter,
     className,
     style
   } = props;
@@ -39,7 +42,7 @@ function DatePanelIndex(props: DatePanelProps) {
     if (picker === mergedMode) {
       let newValue: PickerValue<Dayjs>;
       if (isRange) {
-        newValue = value || [];
+        newValue = [value?.[0], value?.[1]];
         const index = v > newValue[0] ? 1 : 0;
         newValue[index] = v;
         if (
@@ -100,9 +103,43 @@ function DatePanelIndex(props: DatePanelProps) {
       panelNode = <DatePanel<Dayjs> {...pickerProps} />;
   }
 
+  function renderRangeFooter() {
+    let formatString = 'YYYY-MM-DD';
+    if (picker === 'month') {
+      formatString = 'YYYY-MM';
+    }
+    if (picker === 'year') {
+      formatString = 'YYYY';
+    }
+    return (
+      <div
+        className={classnames(
+          `${prefixCls}-footer`,
+          `${prefixCls}-${picker}-footer`
+        )}
+      >
+        <div className='date'>
+          {formatDate({
+            date: value?.[0],
+            format: formatString
+          })}
+        </div>
+        <div className='split'>~</div>
+        <div className='date'>
+          {formatDate({
+            date: value?.[1],
+            format: formatString
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={className} style={style}>
+    <div className={classnames(className, `${prefixCls}`)} style={style}>
       {panelNode}
+      {renderExtraFooter && renderExtraFooter()}
+      {isRange && renderRangeFooter()}
     </div>
   );
 }

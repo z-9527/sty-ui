@@ -5,6 +5,10 @@
 @range-background-color: #e6f5f4;
 
 
+.@{dataPanelPrefixCls}{
+  background-color: #fff;
+}
+
 .@{dataPanelPrefixCls}-header {
   display: flex;
   padding: 0 8px;
@@ -111,6 +115,7 @@
 
 
   &-content {
+    height: 250px;
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
@@ -151,5 +156,40 @@
       }
     }
   }
+
+}
+
+
+.@{dataPanelPrefixCls}-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  border-top: 1px solid #f0f0f0;
+
+  &>.split {
+    width: 10px;
+    text-align: center;
+  }
+  &>.date{
+    font-size: 14px;
+    text-align: center;
+  }
+
+  &.@{dataPanelPrefixCls}-date-footer>.date {
+    width: 98px;
+  }
+
+  &.@{dataPanelPrefixCls}-month-footer>.date {
+    width: 68px;
+  }
+
+  &.@{dataPanelPrefixCls}-year-footer>.date {
+    width: 43px;
+  }
+
+
+
 
 }

@@ -1,6 +1,7 @@
 import { GenerateConfig } from '../generate';
 import { PanelMode } from '../interface';
 import { DECADE_UNIT_DIFF } from '../panels/DecadePanel';
+import { Dayjs } from 'dayjs';
 
 export function isEqual<DateType>(
   generateConfig: GenerateConfig<DateType>,
@@ -211,4 +212,10 @@ export function isInRange<DateType>(
     generateConfig.isAfter(current, startDate) &&
     generateConfig.isAfter(endDate, current)
   );
+}
+export function formatDate({ date, format }: { date: Dayjs; format: string }) {
+  if (!date) {
+    return null;
+  }
+  return date.format(format);
 }

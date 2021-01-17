@@ -36,6 +36,7 @@ export interface DatePanelProps {
   onSelect?: (date: Dayjs) => unknown; // 选中日期的回调
   onChange?: (value: PickerValue<Dayjs>) => unknown; // 值改变的回调
   onPanelChange?: (mode: PanelMode, viewValue: Dayjs) => void; // 面板模式改变的回调
+  renderExtraFooter?: () => React.ReactNode;
 
   className?: string;
   style?: React.CSSProperties;
@@ -43,4 +44,7 @@ export interface DatePanelProps {
 
 export interface DatePickerProps
   extends DatePanelProps,
-    Omit<CellPopupProps, 'onOk'> {}
+    Omit<CellPopupProps, 'onOk'> {
+  format?: string;
+  onOk?: (value: PickerValue<Dayjs>) => unknown;
+}
