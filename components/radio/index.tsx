@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from '../index';
-import { CheckboxProps, GroupProps } from '../checkbox';
+import { CheckboxProps, GroupProps, OptionObjType } from '../checkbox';
 
 export type RadioValueType = string | number;
 export interface RadioProps extends CheckboxProps {}
@@ -8,7 +8,7 @@ export interface RadioGroupProps<T extends RadioValueType>
   extends Omit<GroupProps<T>, 'value' | 'defaultValue' | 'onChange'> {
   value?: T;
   defaultValue?: T;
-  onChange?: (v: T) => unknown;
+  onChange?: (v: T, option: OptionObjType<T>) => unknown;
 }
 
 function Radio(props: RadioProps) {
@@ -27,16 +27,19 @@ function RadioGroup<T extends RadioValueType>(props: RadioGroupProps<T>) {
   const [selectValue, setSelectValue] = useState<T>(defaultValue);
 
   useEffect(() => {
-    if (value !== undefined) {
-      setSelectValue(value);
-    }
+    setSelectValue(value);
   }, [value]);
 
-  function onCheckChange(list: Array<T>, optionValue: T) {
-    setSelectValue(optionValue);
-    props.onChange(optionValue);
+  function onCheckChange(list: Array<T>, optionList: Array<OptionObjType<T>>) {
+    const lastIndex = list.length - 1;
+    const v = list[lastIndex];
+    if (v === undefined) {
+      return;
+    }
+    const option = optionList[lastIndex];
+    props.onChange(v, option);
     if (value === undefined) {
-      setSelectValue(optionValue);
+      setSelectValue(v);
     }
   }
   return (

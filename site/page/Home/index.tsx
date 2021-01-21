@@ -75,6 +75,9 @@ function Home() {
         <li>
           <Link to='/date-picker'>date-picker</Link>
         </li>
+        <li>
+          <Link to='/select'>select</Link>
+        </li>
       </ul>
     </div>
   );

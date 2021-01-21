@@ -72,8 +72,8 @@ function DatePicker(props: DatePickerProps) {
   }
 
   function onVisibleChange(visible) {
-    if (visible && value !== undefined) {
-      setInnerValue(value);
+    if (visible) {
+      setInnerValue(selectedValue);
     }
     onVisibleChangeProps && onVisibleChangeProps(visible);
   }

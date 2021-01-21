@@ -22,6 +22,7 @@ export interface CheckboxProps {
   shape?: 'square' | 'round'; // 图标形状
   color?: CSS.Property.Color; // 选中颜色
   cell?: boolean; // 是否配合cell使用
+  iconAlign?: 'left' | 'right';
   onChange?: (checked: boolean) => unknown;
   children?: React.ReactNode;
   className?: string;
@@ -37,7 +38,8 @@ export interface GroupProps<T extends OptionValueType> {
   color?: CSS.Property.Color; // 选中颜色
   disabled?: boolean;
   cell?: boolean; // 是否配合cell使用
-  onChange?: (list: Array<T>, optionValue: T) => unknown;
+  iconAlign?: 'left' | 'right';
+  onChange?: (list: Array<T>, options: Array<OptionObjType<T>>) => unknown;
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -52,6 +54,7 @@ function Checkbox(props: CheckboxProps) {
     shape,
     color,
     cell,
+    iconAlign,
     disabled,
     children,
     className,
@@ -105,10 +108,21 @@ function Checkbox(props: CheckboxProps) {
           'sty-checkbox-disabled': disabled
         })}
         center
-        title={children}
-        onClick={() => onChange(!isChecked)}
+        title={
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {iconAlign === 'left' && (
+              <div style={{ marginRight: 12 }}>{renderIcon()}</div>
+            )}
+            <div>{children}</div>
+          </div>
+        }
+        onClick={() => {
+          if (!disabled) {
+            onChange(!isChecked);
+          }
+        }}
       >
-        {renderIcon()}
+        {iconAlign === 'right' && renderIcon()}
       </Cell>
     );
   }

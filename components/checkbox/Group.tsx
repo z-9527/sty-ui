@@ -14,6 +14,7 @@ function Group<T extends OptionValueType>(props: GroupProps<T>) {
     color,
     disabled,
     cell,
+    iconAlign,
     className,
     style
   } = props;
@@ -26,9 +27,7 @@ function Group<T extends OptionValueType>(props: GroupProps<T>) {
   }
 
   useEffect(() => {
-    if (Array.isArray(value)) {
-      setList(value);
-    }
+    setList(Array.isArray(value) ? value : []);
   }, [value]);
 
   const newOptions: Array<OptionObjType<T>> = useMemo(() => {
@@ -46,15 +45,19 @@ function Group<T extends OptionValueType>(props: GroupProps<T>) {
     return [];
   }, [options]);
 
-  function onChange(isChecked: boolean, optionValue: T) {
-    const SList = new Set(list);
+  function onChange(isChecked: boolean, option: OptionObjType<T>) {
+    const valueList = new Set(list);
     if (isChecked) {
-      SList.add(optionValue);
+      valueList.add(option.value);
     } else {
-      SList.delete(optionValue);
+      valueList.delete(option.value);
     }
-    const newList = Array.from(SList);
-    props.onChange(newList, optionValue);
+    const newList = Array.from(valueList);
+    const optionList = newList.reduce((total, cur) => {
+      total.push(newOptions.find(i => i.value === cur));
+      return total;
+    }, []);
+    props.onChange(newList, optionList);
     if (value === undefined) {
       setList(newList);
     }
@@ -78,7 +81,8 @@ function Group<T extends OptionValueType>(props: GroupProps<T>) {
           checked={list.indexOf(option.value) !== -1}
           shape={shape}
           color={color}
-          onChange={isChecked => onChange(isChecked, option.value)}
+          iconAlign={iconAlign}
+          onChange={isChecked => onChange(isChecked, option)}
           disabled={
             typeof option.disabled === 'boolean' ? option.disabled : disabled
           }
@@ -97,6 +101,7 @@ Group.defaultProps = {
   options: [],
   direction: 'horizontal',
   shape: 'square',
+  iconAlign: 'right',
   disabled: false,
   onChange: () => undefined
 };

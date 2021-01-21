@@ -21,3 +21,4 @@ export { default as Picker } from './picker';
 export { default as Swipe } from './swipe';
 export { default as CellPopup } from './cell-popup';
 export { default as DatePicker } from './date-picker';
+export { default as Select } from './select';

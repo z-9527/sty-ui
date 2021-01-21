@@ -25,6 +25,7 @@ const PullRefreshDemo = asyncComponent(() => import('./page/PullRefresh'));
 const PickerDemo = asyncComponent(() => import('./page/Picker'));
 const SwipeDemo = asyncComponent(() => import('./page/Swipe'));
 const DatePickerDemo = asyncComponent(() => import('./page/DatePicker'));
+const SelectDemo = asyncComponent(() => import('./page/Select'));
 
 let routes: RouteConfig[] = [
   {
@@ -111,6 +112,10 @@ let routes: RouteConfig[] = [
   {
     path: '/date-picker',
     component: DatePickerDemo
+  },
+  {
+    path: '/select',
+    component: SelectDemo
   }
 ];
 // 用div将懒加载的代码包裹起来，防止路由动画不起作用

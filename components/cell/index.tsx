@@ -47,7 +47,7 @@ function Cell(props: CellProps) {
         <div>{title}</div>
         {label !== undefined && <div className={'sty-cell-label'}>{label}</div>}
       </div>
-      <div className={'sty-cell-value'}>{children}</div>
+      <div className={'sty-cell-value sty-ellipsis'}>{children}</div>
       {arrow !== 'none' && (
         <Icon className='arrow-icon' type={`arrow-${arrow}`} />
       )}
