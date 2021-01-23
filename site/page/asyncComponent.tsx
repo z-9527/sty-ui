@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-// import Loading from '@components/loading';
+import { Loading } from '@/components/index';
 
 const style = {
   display: 'flex',
@@ -13,8 +13,7 @@ const style = {
 const DefaultLoading = () => {
   return (
     <div style={style}>
-      {/* // <Loading vertical>加载中...</Loading> */}
-      加载中...
+      <Loading vertical>加载中...</Loading>
     </div>
   );
 };
