@@ -1,84 +1,40 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Icon } from '@/components/index';
+import nav from './config';
 import './index.less';
 
 function Home() {
+  const homeRef = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const scrollTop = localStorage.getItem('scrollTop');
+    homeRef.current.scrollTop = Number(scrollTop) || 0;
+    return () => {
+      const top = homeRef.current?.scrollTop;
+      localStorage.setItem('scrollTop', JSON.stringify(top));
+    };
+  }, []);
+
   return (
-    <div
-      style={{ background: '#fff', height: '100%', overflow: 'auto' }}
-      className='home'
-    >
-      <ul>
-        <li>
-          <Link to='/button'>button</Link>
-        </li>
-        <li>
-          <Link to='/loading'>loading</Link>
-        </li>
-        <li>
-          <Link to='/Ripple'>Ripple</Link>
-        </li>
-        <li>
-          <Link to='/tabs'>tabs</Link>
-        </li>
-        <li>
-          <Link to='/icon'>icon</Link>
-        </li>
-        <li>
-          <Link to='/index-list'>index-list</Link>
-        </li>
-        <li>
-          <Link to='/nav-bar'>nav-bar</Link>
-        </li>
-        <li>
-          <Link to='/timeline'>timeline</Link>
-        </li>
-        <li>
-          <Link to='/tree-select'>tree-select</Link>
-        </li>
-        <li>
-          <Link to='/popup'>PopupPage</Link>
-        </li>
-        <li>
-          <Link to='/cell'>CellPage</Link>
-        </li>
-        <li>
-          <Link to='/switch'>SwitchPage</Link>
-        </li>
-        <li>
-          <Link to='/radio'>radio</Link>
-        </li>
-        <li>
-          <Link to='/checkbox'>checkbox</Link>
-        </li>
-        <li>
-          <Link to='/swipe'>SwipePage</Link>
-        </li>
-        <li>
-          <Link to='/toast'>ToastPage</Link>
-        </li>
-        <li>
-          <Link to='/action-sheet'>action-sheet</Link>
-        </li>
-        <li>
-          <Link to='/dialog'>dialog</Link>
-        </li>
-        <li>
-          <Link to='/image'>image</Link>
-        </li>
-        <li>
-          <Link to='/pull-refresh'>refresh</Link>
-        </li>
-        <li>
-          <Link to='/picker'>picker</Link>
-        </li>
-        <li>
-          <Link to='/date-picker'>date-picker</Link>
-        </li>
-        <li>
-          <Link to='/select'>select</Link>
-        </li>
-      </ul>
+    <div className='home' ref={homeRef}>
+      {nav.map(item => (
+        <div key={item.title} className='demo-home-nav'>
+          <div className='demo-home-nav__title'>{item.title}</div>
+          <div className='demo-home-nav__group'>
+            {item.items.map(sub => (
+              <Link
+                className='demo-home-nav__block'
+                key={sub.path}
+                to={`/${sub.path}`}
+              >
+                {sub.title}
+                <Icon type='arrow-right' className='demo-home-nav__icon' />
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

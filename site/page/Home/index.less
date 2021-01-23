@@ -1,7 +1,53 @@
+.home {
+  height: 100%;
+  background-color: #fff;
+  padding: 50px 20px;
+  box-sizing: border-box;
+  overflow: auto;
+}
 
-.home{
-  li{
-    margin: 20px;
-    font-size: 28px;
-  }
+.demo-home-nav__title {
+  margin: 24px 0 8px 16px;
+  color: rgba(69, 90, 100, 0.6);
+  font-size: 14px;
+}
+
+.demo-home-nav__block {
+  position: relative;
+  display: flex;
+  margin: 0 0 12px;
+  padding-left: 20px;
+  color: #323233;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 40px;
+  background: #f7f8fa;
+  border-radius: 99px;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+
+.demo-home-nav__block:hover {
+  background: #eef0f4;
+}
+
+.demo-home-nav__block:active {
+  background: #e4e8ee;
+}
+
+.demo-home-nav__icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+}
+
+// 去除a标签点击的蓝色背景
+a {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -moz-user-select: none;
 }
