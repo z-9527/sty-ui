@@ -4,8 +4,8 @@
  */
 export function getType(v) {
   const string = Object.prototype.toString.call(v);
-  const regexp = /(?<= ).*(?=\]$)/;
-  return string.match(regexp)[0];
+  const regexp = /(?= ).*(?=\]$)/; // 后行断言有的浏览器不支持
+  return string.match(regexp)[0].slice(1);
 }
 
 /**
