@@ -66,11 +66,18 @@ function Overlay(props: OverlayProps) {
     if (animation?.out) {
       contentRef.current.classList.remove(animation.in);
       contentRef.current.classList.add(animation.out);
-      contentRef.current.onanimationend = function () {
-        contentRef.current.onanimationend = null;
-        wrapperRef.current.style.display = 'none';
-        afterClose();
-      };
+      if ('onanimationend' in window) {
+        contentRef.current.onanimationend = function () {
+          contentRef.current.onanimationend = null;
+          wrapperRef.current.style.display = 'none';
+          afterClose();
+        };
+      } else {
+        setTimeout(() => {
+          wrapperRef.current.style.display = 'none';
+          afterClose();
+        }, 300);
+      }
     } else {
       wrapperRef.current.style.display = 'none';
       afterClose();
