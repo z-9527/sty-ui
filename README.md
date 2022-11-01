@@ -7,7 +7,7 @@
 
 
 项目地址：https://github.com/z-9527/sty-ui  
-预览地址：http://47.99.130.140/project/sty-ui/#/
+预览地址：https://z-9527.github.io/sty-ui/#/
 
 
 
