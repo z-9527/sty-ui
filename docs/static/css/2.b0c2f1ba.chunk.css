@@ -1,0 +1,14 @@
+.button-demo {
+  background-color: #fff;
+}
+.button-demo .block {
+  padding: 16px;
+  margin: 0 auto;
+}
+.button-demo .sty-button {
+  margin-bottom: 10px;
+}
+.button-demo .sty-button-inline {
+  margin-right: 10px;
+}
+

@@ -1,0 +1,9 @@
+.swipe-demo .swipe {
+  background-color: #fff;
+}
+.swipe-demo .swipe .swipe-item {
+  text-align: center;
+  line-height: 150px;
+  color: #fff;
+}
+

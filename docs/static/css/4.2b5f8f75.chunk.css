@@ -1,0 +1,16 @@
+.refresh-demo {
+  height: calc(100vh - 47px);
+  background-color: #fff;
+}
+.refresh-demo .block {
+  padding: 16px 30px;
+  line-height: 1.8em;
+  font-size: 14px;
+}
+.refresh-demo .dog {
+  width: 140px;
+  height: 72px;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+

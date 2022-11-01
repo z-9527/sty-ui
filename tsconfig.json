@@ -3,7 +3,7 @@
   "buildOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "build", // 指定输出目录
+    "outDir": "docs", // 指定输出目录
     "module": "esnext", // 指定使用模块: 'commonjs', 'amd', 'system', 'umd' or 'es2015'
     "target": "es6", // 指定 ECMAScript 目标版本: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'
     "jsx": "react", // 允许编译 javascript 文件
@@ -19,5 +19,5 @@
     }
   },
   "include": ["site/**/*", "@types/*", "components/*"], // 需要编译的文件目录
-  "exclude": ["node_modules", "build", "public", "mock"] // 排除编译的文件目录
+  "exclude": ["node_modules", "docs", "public", "mock"] // 排除编译的文件目录
 }
