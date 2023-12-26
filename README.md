@@ -13,6 +13,8 @@
 
 整个项目都是自己从零开始开发的，包括ts、eslint和其它webpack配置。部分代码和样式参考了[antd](https://github.com/ant-design/ant-design)、[vant](https://github.com/youzan/vant)、react-components
 
+**代码仅供学习和参考，请勿在生产环境使用**
+
 
 
 对于表单组件暂时还没有封装，准备等后面有时间了参考[field-form](https://github.com/react-component/field-form)。
